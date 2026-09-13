@@ -31,7 +31,7 @@ export default defineConfig({
     }),
     react(),
     sitemap({
-      filter: (page) => !/\/studio\/?$|\/404\/?$/.test(page),
+      filter: (page) => !/\/studio\/?$/.test(page),
     }),
   ],
   vite: {

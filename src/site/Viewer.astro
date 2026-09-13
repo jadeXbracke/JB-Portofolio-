@@ -1,0 +1,52 @@
+---
+/** Full-screen viewer on black. Uses the grid image's own srcset with sizes=100vw. */
+---
+
+<dialog class="viewer" data-viewer aria-label="Picture">
+  <div class="viewer__bar small">
+    <a data-v-series href="/">Series</a>
+    <span data-v-count class="dim"></span>
+    <button type="button" data-v-close>Close</button>
+  </div>
+  <div class="viewer__stage"><img data-v-img alt="" /></div>
+  <div class="viewer__nav">
+    <button type="button" data-v-prev><span>Previous</span></button>
+    <button type="button" data-v-next><span>Next</span></button>
+  </div>
+  <p class="viewer__caption small"><span data-v-caption></span><span data-v-frame></span></p>
+</dialog>
+<script>
+  const dlg = document.querySelector<HTMLDialogElement>('[data-viewer]');
+  const cells = [...document.querySelectorAll<HTMLButtonElement>('[data-view]')];
+  if (dlg && cells.length) {
+    const img = dlg.querySelector<HTMLImageElement>('[data-v-img]')!;
+    const cap = dlg.querySelector<HTMLElement>('[data-v-caption]')!;
+    const frame = dlg.querySelector<HTMLElement>('[data-v-frame]')!;
+    const ser = dlg.querySelector<HTMLAnchorElement>('[data-v-series]')!;
+    const count = dlg.querySelector<HTMLElement>('[data-v-count]')!;
+    let i = 0;
+    const show = (n: number) => {
+      i = (n + cells.length) % cells.length;
+      const c = cells[i];
+      const src = c.querySelector('img')!;
+      img.srcset = src.srcset;
+      img.sizes = '100vw';
+      img.src = src.currentSrc || src.src;
+      img.alt = c.dataset.alt ?? '';
+      cap.textContent = c.dataset.caption || c.dataset.alt || '';
+      frame.textContent = `${c.dataset.series}, ${c.dataset.year}, ${c.dataset.frame}`;
+      ser.href = c.dataset.href!;
+      ser.textContent = c.dataset.series!;
+      count.textContent = `${i + 1} / ${cells.length}`;
+    };
+    cells.forEach((c, n) => c.addEventListener('click', () => { show(n); dlg.showModal(); }));
+    dlg.querySelector('[data-v-close]')!.addEventListener('click', () => dlg.close());
+    dlg.querySelector('[data-v-prev]')!.addEventListener('click', () => show(i - 1));
+    dlg.querySelector('[data-v-next]')!.addEventListener('click', () => show(i + 1));
+    dlg.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') show(i + 1);
+      if (e.key === 'ArrowLeft') show(i - 1);
+    });
+    dlg.addEventListener('close', () => cells[i]?.focus());
+  }
+</script>

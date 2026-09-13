@@ -1,0 +1,14 @@
+---
+import Shell from '@/site/Shell.astro';
+import About from '@/site/About.astro';
+import { getSite } from '@/lib/cms';
+import { ogImageUrl } from '@/lib/image';
+import { personLd } from '@/lib/jsonld';
+import { toText, words } from '@/lib/portable';
+const { settings, series } = await getSite();
+---
+
+<Shell {settings} {series} title="About" description={words(toText(settings.aboutBody), 30)} image={ogImageUrl(settings.portrait ?? settings.seoDefaults.ogImage)} jsonLd={[personLd(settings, Astro.site, Astro.url.toString())]} left={[{ label: 'About' }]} aboutPage>
+  <h1 class="sr-only">About</h1>
+  <About {settings} {series} page />
+</Shell>

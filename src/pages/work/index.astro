@@ -1,0 +1,21 @@
+---
+import Shell from '@/site/Shell.astro';
+import { getSite } from '@/lib/cms';
+import { ogImageUrl } from '@/lib/image';
+import { DISCIPLINE_LABEL } from '@/lib/types';
+const { settings, series } = await getSite();
+const total = series.reduce((n, s) => n + s.images.length, 0);
+---
+
+<Shell {settings} {series} title="Index" description={`Series by ${settings.photographerName}: ${series.map((s) => s.title).join(', ')}.`} image={ogImageUrl(series[0]?.cover)} left={[{ label: `${series.length} series, ${total} images` }]}>
+  <h1 class="sr-only">Index</h1>
+  <nav class="index" aria-label="Series">
+    {series.map((s) => (
+      <a href={`/work/${s.slug}`}>
+        <span>{s.title}</span>
+        <span>{DISCIPLINE_LABEL[s.discipline]}</span>
+        <span>{s.year}</span>
+      </a>
+    ))}
+  </nav>
+</Shell>

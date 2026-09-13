@@ -1,6 +1,6 @@
 # Jade Bracke — portfolio
 
-Five versions of one photography site, built on one codebase. This README is written for
+One photography site, black and white. This README is written for
 Jade first (sections 1–6) and for whoever maintains the code second (sections 7–12).
 
 The site: **Astro 5** (static HTML), **Sanity** (the content editor, at `/studio`),
@@ -8,24 +8,17 @@ The site: **Astro 5** (static HTML), **Sanity** (the content editor, at `/studio
 
 ---
 
-## 1. The five versions
+## 1. The site
 
-Open the root address (for example `https://jadebracke.com/`) to see a plain list linking
-to all five. Each version is a complete site: home, work, series pages, about, contact.
+One site, black and white. The home page is every image in every series as a grid; a
+picture opens full screen when tapped. The bar at the top has the image count and the
+Index on the left, your name in the middle and About on the right. About opens over the
+blurred grid with your statement, contact details, the list of series, selected
+exhibitions and clients. Each series has its own page with its title in tall thin
+capitals, a short intro and the series' pictures.
 
-| Route | Name | In one sentence |
-| --- | --- | --- |
-| `/v1` | Spread | The magazine spread: a full-page photograph next to an enormous thin sans title on paper. |
-| `/v2` | Specter | One photograph at a time on a bone field, a small wordmark, a single word for a menu. |
-| `/v3` | Split | A hard white type panel against saturated full-bleed colour, 40/60. |
-| `/v4` | Cinema | A screening room: black, one frame per screen, title tiny in the corner. |
-| `/v5` | Index | A working archive: every image on one contact sheet with real, filterable metadata. |
-
-All five read the same content. Whatever you change in the Studio changes everywhere.
-
-**Choosing a version.** When you have decided, ask the developer (or Claude Code, see
-section 6) to "make v3 the root". That deletes the other four and the review index, and
-moves the chosen one to `/`. Nothing in the content changes.
+Routes: `/` (all images), `/work` (index of series), `/work/<series>`, `/about`,
+`/contact`, `/studio` (the editor).
 
 ---
 
@@ -83,7 +76,7 @@ picture*. Then **Selected work**: the list that home pages show, in this order. 
 ### About text, portrait, contact details
 **Site settings.** Name, tagline (one line, max 90 characters), About text, portrait,
 email, phone, Instagram handle (no @), where you are based, CV entries, client list,
-availability note, and the default search description. Everything on every version
+availability note, and the default search description. Everything on the site
 reads from here — the email address is never typed anywhere else.
 
 ### Unpublishing and deleting
@@ -124,13 +117,13 @@ hotspot.
 
 ## 4. Changing the look without a developer
 
-Each version has one token file: `src/styles/v1.tokens.css` … `v5.tokens.css`. Every
-colour, typeface, size and spacing the version uses is a named value at the top of that
-file. Components never contain raw values.
+There is one token file, `src/styles/tokens.css`. Every colour, typeface, size and
+spacing the site uses is a named value in that file. Components never contain raw values.
 
-- **Accent colour** (v3 only has one): change `--wine` in `v3.tokens.css`.
-- **Typeface:** change `--font-display` / `--font-body` (or `--font` in v2) in the token
-  file. Display faces are thin sans throughout: Jost 200 (v1, v2), Switzer 200 (v3), Jost 300 (v4). The comment at the top names the paid upgrade path (PP Editorial New, Söhne, GT
+- **Colours:** the site is black and white by design (`--black`, `--white`, and greys as
+  white at an opacity). There is no accent colour to change.
+- **Typeface:** change `--font-display` (Jost, the thin capitals and the About statement)
+  or `--font-text` (Switzer, everything small) in the token file. The comment at the top names the paid upgrade path (PP Editorial New, Söhne, GT
   Alpina, ABC Marfa). Put the licensed `.woff2` files in `public/fonts/` and add matching
   `@font-face` rules to `src/styles/fonts.css`; nothing else changes.
 - **Type scale:** `--ratio` (1.25 or 1.333) and `--step-0` (the body size). Every other
@@ -166,13 +159,13 @@ Breaks a page, and how you will know:
 
 The repository is set up for Claude Code. Three prompts that work as written:
 
-1. *"Make v3 the root: move the v3 routes to `/`, delete v1, v2, v4, v5 and the review
-   index, keep the 404 and the sitemap working, and update the README's version table."*
-2. *"On the v1 series page, captions should sit to the right of column-width images
-   instead of below them, at desktop widths only. Keep CLS at 0 and check `npm run
-   build` and `npm run screenshots v1`."*
+1. *"On the home grid, group the images by series with the series title as a small
+   line above each group. Keep the justified rows and CLS at 0; run `npm run build` and
+   `npm run screenshots`."*
+2. *"In the viewer, add a small 'Open series' link under the caption and let the arrow
+   keys wrap around at the ends. Keep the viewer black and the type sizes from tokens."*
 3. *"Add a Dutch locale: field-level `en`/`nl` for tagline, about, intro, captions and
-   alt, a language switch in each version's nav, `/nl/...` routes and `hreflang` tags.
+   alt, a language switch in the bar, `/nl/...` routes and `hreflang` tags.
    Follow the approach in README section 11 and do not change document ids or slugs."*
 
 Always ask it to run `npm run build` and `npm run check` before it pushes.
@@ -193,13 +186,13 @@ Scripts:
 
 | Script | What it does |
 | --- | --- |
-| `npm run dev` / `build` / `preview` | Astro. `build` also writes per-version `404.html` files. |
+| `npm run dev` / `build` / `preview` | Astro. |
 | `npm run check` | `astro check` (TypeScript across `.astro` files). |
 | `npm run fonts` | Fetches and subsets the web fonts (needs `pyftsubset` for subsetting; optional). |
 | `npm run seed:images` | Regenerates the 12 placeholder images into `public/seed/` (runs automatically before `build` and `dev` if missing). |
 | `npm run seed:upload` | Uploads the seed content + placeholders to your Sanity dataset (needs `SANITY_WRITE_TOKEN`). |
-| `npm run screenshots [v1..v5\|all] [--full]` | Playwright screenshots at 1440 and 390 into `qa/screens/`. |
-| `npm run lighthouse [v1..v5\|all]` | Lighthouse on the 20-image series page, JSON into `qa/lighthouse/`. |
+| `npm run screenshots [--full]` | Playwright screenshots at 1440 and 390 into `qa/screens/`. |
+| `npm run lighthouse [path]` | Lighthouse on the 20-image series page, JSON into `qa/lighthouse/`. |
 
 `playwright` and `lighthouse` are not in `package.json` (they are large and only for QA):
 `npm i -D playwright lighthouse chrome-launcher` when you need them, and set
@@ -207,8 +200,8 @@ Scripts:
 
 ### Without a Sanity project
 Leave `PUBLIC_SANITY_PROJECT_ID` empty and the site builds from `seed/content.json` plus
-12 generated placeholder images — tonal fields and simple geometry, no people, no stock.
-That is how all five versions render in a fresh clone.
+12 generated greyscale placeholder images — tonal fields and simple geometry, no people,
+no stock. That is how the site renders in a fresh clone.
 
 ### With a Sanity project
 1. Create a project at sanity.io/manage (free tier), dataset `production`.
@@ -233,12 +226,12 @@ Implemented in `src/lib/image.ts` and `src/components/Pic.astro`:
 - srcset widths 640, 960, 1280, 1600, 2000, 2600, 3200; capped at 3200; `sizes` written
   per placement (never a blanket `100vw` unless the image truly is 100vw).
 - Explicit `width`/`height` from `metadata.dimensions` (after the CMS crop), and a
-  reserved `aspect-ratio` on the wrapper. CLS is 0 in Lighthouse on every version.
+  reserved `aspect-ratio` on the wrapper. CLS is 0 in Lighthouse on every page.
 - Blur-up from `metadata.lqip` behind the image, one opacity fade on load, no shimmer.
 - The first image on each page is `loading="eager"`, `fetchpriority="high"`, and
   preloaded with `imagesrcset`/`imagesizes`. Everything else is lazy.
-- Crops only happen where a layout must fill (v3's colour panel, v4's full frames) and are
-  positioned by the hotspot the photographer set.
+- The grid never crops: each cell takes the picture's own ratio. The hotspot is used only
+  for the 1200×630 sharing image.
 
 **Colour management.** Nothing in HTML "tags" colour — it is a property of the file. The
 export preset embeds the Display P3 profile; Sanity's image pipeline preserves the
@@ -265,14 +258,12 @@ dataset from the build environment (see Assumptions).
    on create/update/delete, dataset `production`, HTTP method POST. Publishing in the
    Studio now rebuilds the site in about a minute.
 
-`public/_headers` sets immutable caching for fonts and hashed assets. Each version has its
-own 404 (`dist/vN/404.html`), which Cloudflare Pages serves for anything under `/vN/`.
+`public/_headers` sets immutable caching for fonts and hashed assets. `dist/404.html` is
+the not-found page.
 
 ### Vercel (alternative)
 Import the repo; framework preset Astro; same environment variables. Rebuild on publish:
-Vercel → Settings → Git → Deploy Hooks, then the same Sanity webhook. Vercel serves only
-the root `404.html`; that page redirects to the matching version's 404 by script, so the
-per-version pages still work.
+Vercel → Settings → Git → Deploy Hooks, then the same Sanity webhook. The root `404.html` works the same way there.
 
 ### Analytics
 None installed. If wanted later, Plausible or Umami are privacy-respecting and need one
@@ -282,27 +273,21 @@ None installed. If wanted later, Plausible or Umami are privacy-respecting and n
 
 ## 10. Quality floor, as measured
 
-Measured with Lighthouse 12 (mobile emulation, simulated 4G) on the 20-image series page
-`/work/proof` of each version, served from `dist/` (see `qa/lighthouse/` after
+Measured with Lighthouse 12 (mobile emulation, simulated 4G), served from `dist/` (see `qa/lighthouse/` after
 `npm run lighthouse`):
 
-| Version | Performance | Accessibility | Best practices | SEO | LCP | CLS |
+| Page | Performance | Accessibility | Best practices | SEO | LCP | CLS |
 | --- | --- | --- | --- | --- | --- | --- |
-| v1 | 100 | 100 | 100 | 100 | 1.4 s | 0 |
-| v2 | 100 | 100 | 100 | 100 | 1.6 s | 0 |
-| v3 | 100 | 100 | 100 | 100 | 1.1 s | 0 |
-| v4 | 100 | 100 | 100 | 100 | 1.6 s | 0 |
-| v5 | 100 | 100 | 100 | 100 | 1.1 s | 0 |
+| Series page, 20 images (`/work/proof`) | 100 | 100 | 100 | 100 | 1.7 s | 0 |
+| Home, all 49 images (`/`) | 99 | 100 | 100 | 100 | 2.0 s | 0 |
 
 Measured against generated placeholders on a local server. With real 4800px masters on
 the Sanity CDN, LCP depends on the CDN's response time for the first AVIF; the preload
 and `fetchpriority` are there for that case.
 
-Also in place: visible focus rings everywhere, logical tab order (checked by script on
-v1), `prefers-reduced-motion` honoured in every version (one rule in `base.css` plus a
-check in every script that animates), `lang="en"`, skip link, JSON-LD Person /
+Also in place: visible focus rings everywhere, logical tab order, `prefers-reduced-motion` honoured (one rule in `base.css`), `lang="en"`, skip link, JSON-LD Person /
 CreativeWork / ImageObject, per-series Open Graph image (1200×630 from the cover's
-hotspot), `sitemap-index.xml`, `robots.txt`, canonical URLs, 404 per version.
+hotspot), `sitemap-index.xml`, `robots.txt`, canonical URLs, a 404 page.
 
 Responsive range: laid out from 320px to 2560px; screenshots at 390 and 1440 are in
 `qa/screens/` after `npm run screenshots`.
@@ -319,9 +304,9 @@ The content model is ready for field-level localisation without a rewrite:
   `series.title`, `intro`, and `photo.alt` / `caption` — into `{ en, nl }` arrays. Slugs,
   ids, years, disciplines, image assets and ordering stay exactly as they are.
 - In `src/lib/cms.ts`, the GROQ projection picks the locale (`coalesce(title[_key ==
-  $lang][0].value, title[_key == "en"][0].value)`), so every version keeps reading the same
+  $lang][0].value, title[_key == "en"][0].value)`), so the site keeps reading the same
   `SiteData` shape.
-- Routes: `src/pages/[lang]/vN/...` (or `/nl/...` once a version is chosen) with
+- Routes: `src/pages/[lang]/...` (or `/nl/...`) with
   `lang` on `<html>`, `hreflang` alternates in `Seo.astro`, and a two-letter switch in each
   nav. `DISCIPLINE_LABEL` becomes a per-locale map.
 
@@ -340,13 +325,13 @@ src/lib/cms.ts           the one data layer: Sanity → SiteData, or seed → Si
 src/lib/image.ts         URL builder, srcset, preload, OG image, hotspot position
 src/components/Pic.astro the image component
 src/components/Seo.astro head metadata + JSON-LD
-src/layouts/Base.astro   html shell shared by all versions
+src/layouts/Base.astro   html shell (head, skip link, accessibility floor)
 src/styles/base.css      reset, accessibility floor, image component, reduced motion
 src/styles/fonts.css     generated @font-face rules (npm run fonts)
-src/styles/vN.tokens.css tokens per version (colour, type, scale, spacing, motion)
-src/styles/vN.css        layout per version
-src/versions/vN/         Shell (nav/footer) and version-specific parts
-src/pages/vN/            index, work/index, work/[slug], about, contact, 404
+src/styles/tokens.css    tokens (colour, type, scale, spacing, motion)
+src/styles/site.css      layout
+src/site/                Shell, Bar, About, Grid, Viewer
+src/pages/               index (all images), work/index, work/[slug], about, contact, 404
 seed/                    content.json, placeholder generator, Sanity upload script
 scripts/                 fetch-fonts, postbuild, serve, screenshots, lighthouse
 DESIGN-NOTES.md          the design plan and the self-review against the brief
@@ -357,13 +342,15 @@ DESIGN-NOTES.md          the design plan and the self-review against the brief
 - Contact details (`hello@jadebracke.com`, `@jadebracke`, `jadebracke.com`) are seed
   values in `seed/content.json` and `astro.config.mjs` (`SITE_URL`); the live values come
   from Site settings in the Studio.
-- The Fontshare font files could not be downloaded from the build environment (its
-  network policy blocks fontshare.com). `npm run fonts` fetches them on any normal
-  machine; until then the site uses the system fallback stacks declared in each token
-  file. Jost (Google Fonts) is fetched and committed and is the real display face of v1, v2 and v4. The review screenshots in this
+- The Switzer, General Sans and Erode files could not be downloaded from the build
+  environment (its network policy blocks fontshare.com). `npm run fonts` fetches them on
+  any normal machine; until then the site uses the system fallback stack for Switzer.
+  Jost (Google Fonts) is fetched, committed and is the real display face. The review screenshots in this
   session used renamed Google stand-ins installed only in that environment.
 - The Studio's drag-to-reorder at 390px was checked against Sanity's own layout, not a
   live dataset (no project credentials in the build environment). See section 2.
+- The gamut test (section 8) needs a real saturated photograph; the demo placeholders are
+  greyscale because the site is black and white.
 - Colour management relies on Sanity preserving embedded ICC profiles, per their
   documentation; verify with the red still-life test in section 8 after the first real
   upload.

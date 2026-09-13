@@ -263,3 +263,28 @@ and 6 of the brief before the next one started. Changes made as a result:
   Switzer body, v3 Switzer 200 with General Sans body. v1's cover spread now mirrors the
   reference exactly: photograph on the left page, title at the top of the right page,
   standfirst tiny. v3's home panel carries the centred wordmark and nothing else.
+
+## 7. Redirection — one site, black and white
+
+After review the client sent the references again with one more (zanvargek.com) and a
+clear brief: only black and white; the typography of the magazine spread; the aesthetic
+and menu structure of zanvargek.com. That is one site, not five. The five versions were
+removed (they remain in git history before this commit) and replaced by:
+
+- **Ground:** true black. Type white; every grey is white at an opacity. No other colour.
+- **Bar:** three positions, as in the reference. Left: the count ("49 images") and
+  "Index"; centre: the name in small tracked capitals; right: "About", which becomes
+  "Close" when the overlay is open.
+- **Home:** every image in every series as a justified grid on black. Clicking a picture
+  opens it full screen on black in a viewer with its caption and series; arrows and
+  Escape work; the series name links to the series page.
+- **About:** an overlay over the blurred, dimmed grid, exactly as the reference: the
+  statement large and light in the middle column, Contact in the right column, then
+  Series / Selected / Clients as small lists in columns. `/about` is the same content
+  as a page for search engines and no-JS visitors.
+- **Series pages:** the spread's typography — the title in tall, thin capitals (Jost
+  200), a tiny standfirst, a small tracked byline ("2023, Documentary, Photographed by
+  Jade Bracke") — above the series' own grid.
+- **Type:** Jost 200/300 for display and the About statement, Switzer for everything
+  else. Sizes are small on purpose; the pictures carry the page.
+- **No location anywhere.** Placeholders are greyscale so the demo is black and white too.

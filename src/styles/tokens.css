@@ -1,0 +1,67 @@
+/* Tokens. Black and white only: every grey on the site is white at an opacity.
+   Display: Jost 200/300 — tall, thin sans capitals (the magazine-spread reference).
+   Text: Switzer — small, plain grotesk for standfirsts, captions and lists.
+   Paid upgrade path: --font-display → 'ABC Marfa' or 'Söhne Breit' (Extraleicht),
+   --font-text → 'Söhne'. Swap the family here; nothing else refers to a family name. */
+@layer reset, tokens, base, layout, components, states;
+
+@layer tokens {
+  :root {
+    --black: #000000;
+    --white: #ffffff;
+    --white-60: rgb(255 255 255 / 0.6);
+    --white-40: rgb(255 255 255 / 0.4);
+    --white-12: rgb(255 255 255 / 0.12);
+    --focus: var(--white);
+
+    --font-display: 'Jost', 'Futura', 'Avenir Next', 'Century Gothic', sans-serif;
+    --font-text: 'Switzer', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --weight-display: 200;
+    --weight-display-strong: 300;
+    --weight-text: 400;
+
+    /* Modular scale, ratio 1.25, base 14px: the site's text is small on purpose */
+    --ratio: 1.25;
+    --step-0: 0.875rem;
+    --step--1: calc(var(--step-0) / var(--ratio));
+    --step-1: calc(var(--step-0) * var(--ratio));
+    --step-2: calc(var(--step-1) * var(--ratio));
+    --step-3: calc(var(--step-2) * var(--ratio));
+    --step-4: calc(var(--step-3) * var(--ratio));
+    --step-5: calc(var(--step-4) * var(--ratio));
+    --step-6: calc(var(--step-5) * var(--ratio));
+    --step-7: calc(var(--step-6) * var(--ratio));
+    --step-8: calc(var(--step-7) * var(--ratio));
+
+    /* The title: tall thin capitals, sized to the viewport like a magazine headline */
+    --display: clamp(var(--step-5), 7.5vw, var(--step-8));
+    --statement: clamp(var(--step-2), 2.4vw, var(--step-4));
+    --track-display: 0.1em;
+    --track-bar: 0.28em;
+    --track-small: 0.14em;
+    --leading-display: 1;
+    --leading-text: 1.55;
+    --leading-statement: 1.35;
+    --measure: 34ch;
+    --measure-statement: 44ch;
+
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 1rem;
+    --space-4: 1.5rem;
+    --space-5: 2.5rem;
+    --space-6: 4rem;
+    --space-7: 6.5rem;
+    --gutter: clamp(1rem, 2.2vw, 2rem);
+    --bar-h: 3.5rem;
+
+    /* Grid: rows are justified; this is the target row height */
+    --row: 30vh;
+    --row-series: 42vh;
+    --gap: clamp(0.5rem, 1.2vw, 1rem);
+
+    --dur: 500ms;
+    --ease: cubic-bezier(0.2, 0, 0.1, 1);
+    --blur: 18px;
+  }
+}

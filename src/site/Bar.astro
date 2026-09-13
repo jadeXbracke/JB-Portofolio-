@@ -1,0 +1,20 @@
+---
+/** The bar: context left, name centre, About right. */
+import type { SiteSettings } from '@/lib/types';
+interface Props {
+  settings: SiteSettings;
+  left?: { label: string; href?: string }[];
+}
+const { settings, left = [] } = Astro.props;
+---
+
+<header class="bar">
+  <p class="bar__left">
+    {left.map((l) => (l.href ? <a href={l.href}>{l.label}</a> : <span>{l.label}</span>))}
+  </p>
+  <a class="bar__name" href="/">{settings.photographerName}</a>
+  <nav class="bar__right" aria-label="Main">
+    <a href="/about" data-about aria-expanded="false" aria-controls="about">About</a>
+    <button type="button" data-close>Close</button>
+  </nav>
+</header>

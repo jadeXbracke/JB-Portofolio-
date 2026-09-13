@@ -1,0 +1,62 @@
+---
+/** The About content: statement, contact, series, clients, selected. Overlay or page. */
+import Pic from '@/components/Pic.astro';
+import { heightSizes, QUALITY } from '@/lib/image';
+import { toHtml } from '@/lib/portable';
+import type { Series, SiteSettings } from '@/lib/types';
+import { DISCIPLINE_LABEL } from '@/lib/types';
+interface Props {
+  settings: SiteSettings;
+  series: Series[];
+  page?: boolean;
+}
+const { settings, series, page = false } = Astro.props;
+---
+
+<section class:list={['about', page && 'about--page']} id="about" aria-label="About">
+  {settings.portrait && (
+    <div class="about__portrait">
+      <Pic photo={settings.portrait} sizes="(min-width: 60em) 18rem, 60vw" quality={QUALITY.grid} priority={page} />
+    </div>
+  )}
+  <div class="about__statement" set:html={toHtml(settings.aboutBody)} />
+  <address class="about__contact">
+    <h2 class="small">Contact</h2>
+    <a href={`mailto:${settings.email}`}>{settings.email}</a>
+    {settings.instagram && <a href={`https://www.instagram.com/${settings.instagram}/`} rel="me">@{settings.instagram}</a>}
+    {settings.phone && <a href={`tel:${settings.phone.replace(/\s+/g, '')}`}>{settings.phone}</a>}
+    {settings.availabilityNote && <p class="dim" style="margin-top: var(--space-3)">{settings.availabilityNote}</p>}
+  </address>
+  <div class="about__lists">
+    <section>
+      <h2 class="small">Series</h2>
+      <ol>
+        {series.map((s) => (
+          <li class="row">
+            <span>{s.year}</span>
+            <a href={`/work/${s.slug}`}>{s.title}, {DISCIPLINE_LABEL[s.discipline].toLowerCase()}</a>
+          </li>
+        ))}
+      </ol>
+    </section>
+    {settings.cvItems.length > 0 && (
+      <section>
+        <h2 class="small">Selected</h2>
+        <ol>
+          {settings.cvItems.map((c) => (
+            <li class="row">
+              <span>{c.year}</span>
+              <span>{c.text}</span>
+            </li>
+          ))}
+        </ol>
+      </section>
+    )}
+    {settings.clientList.length > 0 && (
+      <section>
+        <h2 class="small">Clients</h2>
+        <ul>{settings.clientList.map((c) => <li>{c}</li>)}</ul>
+      </section>
+    )}
+  </div>
+</section>

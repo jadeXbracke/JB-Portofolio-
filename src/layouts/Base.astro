@@ -8,10 +8,9 @@ import '@/styles/base.css';
 import '@/styles/fonts.css';
 import Seo from '@/components/Seo.astro';
 import type { PreloadAttrs } from '@/lib/image';
-import type { VersionId } from '@/lib/site';
 
 interface Props {
-  version: VersionId | 'root';
+  version?: string;
   title: string;
   description: string;
   siteName: string;
@@ -24,7 +23,7 @@ interface Props {
   bodyClass?: string;
   noindex?: boolean;
 }
-const { version, title, description, siteName, image, type, jsonLd, preload, fonts = [], bodyClass, noindex } =
+const { version = 'site', title, description, siteName, image, type, jsonLd, preload, fonts = [], bodyClass, noindex } =
   Astro.props;
 const fontLinks = fonts.filter((f) => existsSync(new URL(`../../public/fonts/${f}`, import.meta.url)));
 ---

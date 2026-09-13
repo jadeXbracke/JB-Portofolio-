@@ -1,0 +1,50 @@
+---
+import Shell from '@/site/Shell.astro';
+import Grid from '@/site/Grid.astro';
+import Viewer from '@/site/Viewer.astro';
+import { getSite, neighbours } from '@/lib/cms';
+import { heightSizes, ogImageUrl, preloadAttrs, QUALITY } from '@/lib/image';
+import { seriesLd } from '@/lib/jsonld';
+import { toHtml, toText, words } from '@/lib/portable';
+import { DISCIPLINE_LABEL } from '@/lib/types';
+
+export async function getStaticPaths() {
+  const { series } = await getSite();
+  return series.map((s) => ({ params: { slug: s.slug }, props: { slug: s.slug } }));
+}
+const { settings, series } = await getSite();
+const item = series.find((s) => s.slug === Astro.props.slug)!;
+const { prev, next } = neighbours(series, item);
+const items = item.images.map((photo, i) => ({ photo, series: item, index: i }));
+const first = item.images[0];
+const firstSizes = first.displayWidth === 'full' ? '92vw' : heightSizes(first, 42, 90);
+const description = words(toText(item.intro), 30) || `${item.title}, ${item.year}. ${DISCIPLINE_LABEL[item.discipline]} by ${settings.photographerName}.`;
+---
+
+<Shell
+  {settings}
+  {series}
+  title={item.title}
+  {description}
+  type="article"
+  image={ogImageUrl(item.cover)}
+  preload={preloadAttrs(first, firstSizes, QUALITY.grid)}
+  jsonLd={[seriesLd(item, settings, Astro.site, Astro.url.toString())]}
+  left={[{ label: 'Index', href: '/work' }, { label: `${item.images.length} images` }]}
+>
+  <article>
+    <header class="feature">
+      <h1 class="display">{item.title}</h1>
+      <div class="feature__standfirst" set:html={toHtml(item.intro)} />
+      <p class="feature__byline small">
+        {[String(item.year), DISCIPLINE_LABEL[item.discipline], item.client ? `for ${item.client}` : null, `photographed by ${settings.photographerName}`].filter(Boolean).join(', ')}
+      </p>
+    </header>
+    <Grid {items} variant="series" />
+    <p class="feature__next small">
+      {prev && <a href={`/work/${prev.slug}`}>Previous, {prev.title}</a>}
+      {next && <a href={`/work/${next.slug}`}>Next, {next.title}</a>}
+    </p>
+  </article>
+  <Viewer />
+</Shell>

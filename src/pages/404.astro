@@ -1,29 +1,11 @@
 ---
-// Root 404. Cloudflare Pages serves /vN/404.html for /vN/* itself; this page is for hosts
-// that only know one 404. It sends the visitor to the matching version's page.
-import { VERSIONS } from '@/lib/site';
+import Shell from '@/site/Shell.astro';
+import { getSite } from '@/lib/cms';
+const { settings, series } = await getSite();
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="robots" content="noindex" />
-    <title>Not found — Jade Bracke</title>
-    <script is:inline>
-      var m = location.pathname.match(/^\/(v[1-5])(\/|$)/);
-      if (m) location.replace('/' + m[1] + '/404');
-    </script>
-    <style>
-      body { margin: 0; padding: 3rem 1.25rem; font: 400 1rem/1.6 system-ui, sans-serif; color: #111; background: #fff; }
-      a { color: inherit; }
-    </style>
-  </head>
-  <body>
-    <p>That page does not exist.</p>
-    <ul>
-      {VERSIONS.map((v) => <li><a href={`/${v.id}`}>{v.name}</a></li>)}
-    </ul>
-  </body>
-</html>
+<Shell {settings} {series} title="Not found" description="That page does not exist." noindex left={[{ label: 'Not found' }]}>
+  <section class="plain">
+    <p class="dim">That page does not exist. <a href="/" style="color: var(--white)">All images</a></p>
+  </section>
+</Shell>

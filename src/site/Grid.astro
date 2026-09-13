@@ -1,0 +1,43 @@
+---
+/**
+ * The justified grid. Every cell is a button that opens the picture full screen in the
+ * viewer; the series name in the viewer links to the series page. Row height is the
+ * token; displayWidth scales a picture's share of its row (full takes a row of its own).
+ */
+import Pic from '@/components/Pic.astro';
+import { heightSizes, QUALITY } from '@/lib/image';
+import type { Photo, Series } from '@/lib/types';
+interface Props {
+  items: { photo: Photo; series: Series; index: number }[];
+  variant?: 'home' | 'series';
+}
+const { items, variant = 'home' } = Astro.props;
+const rowVh = variant === 'home' ? 30 : 42;
+const scale = { full: 1, wide: 1.5, half: 1, column: 0.7 } as const;
+---
+
+<div class:list={['grid', variant === 'series' && 'grid--series']} data-grid>
+  {
+    items.map(({ photo, series, index }, i) => {
+      const w = variant === 'series' ? photo.displayWidth : 'half';
+      const sizes = w === 'full' ? '92vw' : heightSizes(photo, rowVh * scale[w], 90);
+      return (
+        <button
+          type="button"
+          class:list={['cell', `cell--${w}`]}
+          style={`--ar:${photo.width}/${photo.height}`}
+          data-view
+          data-caption={photo.caption ?? ''}
+          data-alt={photo.alt}
+          data-series={series.title}
+          data-year={series.year}
+          data-href={`/work/${series.slug}`}
+          data-frame={`${index + 1} / ${series.images.length}`}
+          aria-label={`View ${photo.alt}`}
+        >
+          <Pic photo={photo} sizes={sizes} quality={QUALITY.grid} priority={i === 0} />
+        </button>
+      );
+    })
+  }
+</div>

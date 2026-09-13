@@ -18,7 +18,7 @@ mkdirSync(OUT, { recursive: true });
 const meta = {};
 for (const id of Object.keys(PLACEHOLDERS)) {
   const { w, h, p3 } = PLACEHOLDERS[id];
-  const full = await master(id).png().toBuffer();
+  const full = await master(id).grayscale().png().toBuffer(); // the demo is black and white
   const cap = Math.min(w, 3200);
   const widths = WIDTHS.filter((x) => x < cap).concat([cap]);
   for (const width of widths) {

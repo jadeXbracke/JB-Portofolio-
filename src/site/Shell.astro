@@ -1,0 +1,49 @@
+---
+import Base from '@/layouts/Base.astro';
+import '@/styles/tokens.css';
+import '@/styles/site.css';
+import Bar from './Bar.astro';
+import About from './About.astro';
+import type { PreloadAttrs } from '@/lib/image';
+import type { Series, SiteSettings } from '@/lib/types';
+
+interface Props {
+  settings: SiteSettings;
+  series: Series[];
+  title: string;
+  description: string;
+  image?: string;
+  type?: 'website' | 'article';
+  jsonLd?: Record<string, unknown>[];
+  preload?: PreloadAttrs;
+  noindex?: boolean;
+  left?: { label: string; href?: string }[];
+  /** The /about page renders About in flow instead of as an overlay. */
+  aboutPage?: boolean;
+}
+const { settings, series, title, description, image, type, jsonLd, preload, noindex, left, aboutPage = false } = Astro.props;
+---
+
+<Base {title} {description} siteName={settings.photographerName} {image} {type} {jsonLd} {preload} {noindex} fonts={['jost-variable.woff2', 'switzer-400.woff2']}>
+  <Bar {settings} {left} />
+  <main id="main">
+    <slot />
+  </main>
+  {!aboutPage && <About {settings} {series} />}
+  <script>
+    // About opens as an overlay over the blurred page; without JS the link goes to /about.
+    const about = document.querySelector<HTMLAnchorElement>('[data-about]');
+    const close = document.querySelector<HTMLButtonElement>('[data-close]');
+    const panel = document.getElementById('about');
+    if (about && close && panel && !panel.classList.contains('about--page')) {
+      const set = (open: boolean) => {
+        document.body.classList.toggle('is-about', open);
+        about.setAttribute('aria-expanded', String(open));
+        if (open) panel.scrollTop = 0;
+      };
+      about.addEventListener('click', (e) => { e.preventDefault(); set(!document.body.classList.contains('is-about')); });
+      close.addEventListener('click', () => set(false));
+      document.addEventListener('keydown', (e) => e.key === 'Escape' && set(false));
+    }
+  </script>
+</Base>

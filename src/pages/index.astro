@@ -1,34 +1,27 @@
 ---
-// Throwaway index for review. Delete this file (and keep the chosen version) when the
-// client has decided; see README "Choosing a version".
-import { VERSIONS } from '@/lib/site';
+import Shell from '@/site/Shell.astro';
+import Grid from '@/site/Grid.astro';
+import Viewer from '@/site/Viewer.astro';
+import { getArchive, getSite } from '@/lib/cms';
+import { heightSizes, ogImageUrl, preloadAttrs, QUALITY } from '@/lib/image';
+import { personLd } from '@/lib/jsonld';
+
+const { settings, series } = await getSite();
+const items = await getArchive();
+const first = items[0]?.photo;
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="robots" content="noindex" />
-    <title>Jade Bracke — five versions</title>
-    <style>
-      body { margin: 0; padding: 3rem 1.25rem; font: 400 1rem/1.6 system-ui, sans-serif; color: #111; background: #fff; max-width: 40rem; }
-      h1 { font-size: 1rem; font-weight: 500; margin: 0 0 2rem; }
-      ol { padding-left: 1.5rem; }
-      li { margin-bottom: 1rem; }
-      a { color: inherit; }
-      p { margin: 0; color: #666; }
-    </style>
-  </head>
-  <body>
-    <h1>Jade Bracke — five versions for review</h1>
-    <ol>
-      {VERSIONS.map((v) => (
-        <li>
-          <a href={`/${v.id}`}>{v.id.toUpperCase()} {v.name}</a>
-          <p>{v.line}</p>
-        </li>
-      ))}
-    </ol>
-  </body>
-</html>
+<Shell
+  {settings}
+  {series}
+  title={settings.seoDefaults.title}
+  description={settings.seoDefaults.description}
+  image={ogImageUrl(settings.seoDefaults.ogImage ?? first)}
+  preload={first ? preloadAttrs(first, heightSizes(first, 30, 90), QUALITY.grid) : undefined}
+  jsonLd={[personLd(settings, Astro.site, Astro.url.toString())]}
+  left={[{ label: `${items.length} images` }, { label: 'Index', href: '/work' }]}
+>
+  <h1 class="sr-only">{settings.photographerName}</h1>
+  <Grid {items} />
+  <Viewer />
+</Shell>
