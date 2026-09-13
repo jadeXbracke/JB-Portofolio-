@@ -11,9 +11,10 @@
     --rule: #e6e6e6;
     --focus: var(--wine);
 
-    --font-display: 'Zodiak', 'Bodoni 72', Didot, Georgia, serif;
+    /* The reference (MAFALDA) is a thin, wide-tracked sans wordmark on white — Switzer 200 */
+    --font-display: 'Switzer', 'Jost', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     --font-body: 'General Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    --weight-display: 300;
+    --weight-display: 200;
     --weight-body: 400;
 
     /* Modular scale, ratio 1.333, base 16px */
@@ -30,8 +31,8 @@
     --step-7: calc(var(--step-6) * var(--ratio));
     --step-8: calc(var(--step-7) * var(--ratio));
 
-    --track-wordmark: 0.36em;
-    --track-display: 0.28em;
+    --track-wordmark: 0.42em;
+    --track-display: 0.32em;
     --track-small: 0.16em;
     --leading-body: 1.6;
     --measure: 46ch;

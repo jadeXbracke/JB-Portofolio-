@@ -79,6 +79,19 @@
   .split__body h1 {
     font-size: var(--step-3);
   }
+  /* Home: the panel carries the name and nothing else, centred, like the reference */
+  .split:has(.split__body--mark) .split__panel > .v3-wordmark {
+    visibility: hidden;
+  }
+  .split__body--mark {
+    justify-items: center;
+    text-align: center;
+  }
+  .split__body--mark h1 {
+    font-size: clamp(var(--step-1), 2.2vw, var(--step-3));
+    letter-spacing: var(--track-wordmark);
+    margin-right: calc(-1 * var(--track-wordmark));
+  }
   .split__body h1.v3-small {
     font-size: var(--step--2);
   }

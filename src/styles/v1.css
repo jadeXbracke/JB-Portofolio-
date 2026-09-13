@@ -32,6 +32,10 @@
   .v1-head--half {
     right: 50%;
   }
+  .v1-head--half.v1-head--right {
+    right: 0;
+    left: 50%;
+  }
   .v1-nav {
     display: flex;
     gap: var(--space-4);
@@ -114,14 +118,16 @@
     padding: calc(var(--space-7)) var(--gutter) var(--space-5);
   }
   .spread__title {
-    align-self: end;
+    align-self: start; /* title at the top of the page, as in the reference spread */
   }
-  .spread--opener .spread__title {
-    align-self: start;
+  /* Home: photograph on the left page, type on the right, as in the reference */
+  .spread--cover .spread__page {
+    order: 2;
   }
   .spread__standfirst {
     max-width: var(--measure-standfirst);
     margin-top: var(--space-5);
+    font-size: var(--step--1); /* the reference's standfirst is tiny next to the title */
   }
   .spread__byline {
     color: var(--grey-text);
@@ -313,11 +319,14 @@
       grid-template-columns: 1fr;
       min-height: 0;
     }
-    .spread--flip .spread__page {
+    .spread--flip .spread__page,
+    .spread--cover .spread__page {
       order: 0;
     }
-    .v1-head--half {
+    .v1-head--half,
+    .v1-head--half.v1-head--right {
       right: 0;
+      left: 0;
     }
     .spread__page {
       min-height: 0;

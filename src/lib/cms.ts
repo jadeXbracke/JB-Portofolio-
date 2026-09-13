@@ -121,7 +121,7 @@ async function loadFromSanity(): Promise<SiteData> {
     email: st.email ?? '',
     phone: st.phone || undefined,
     instagram: st.instagram || undefined,
-    location: st.location ?? 'Amsterdam',
+    location: st.location || '',
     cvItems: st.cvItems ?? [],
     clientList: st.clientList ?? [],
     availabilityNote: st.availabilityNote || undefined,

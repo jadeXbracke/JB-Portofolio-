@@ -38,7 +38,7 @@ export const siteSettings = defineType({
       description: 'Without the @.',
       validation: (r) => r.regex(/^[A-Za-z0-9._]+$/).error('Just the handle, no @ and no URL.'),
     }),
-    defineField({ name: 'location', title: 'Based in', type: 'string', initialValue: 'Amsterdam' }),
+    defineField({ name: 'location', title: 'Based in', type: 'string', description: 'Optional. Only used in structured data for search engines, never shown on the site.' }),
     defineField({
       name: 'cvItems',
       title: 'CV',

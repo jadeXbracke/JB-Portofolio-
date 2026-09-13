@@ -1,7 +1,7 @@
 {
   "siteSettings": {
     "photographerName": "Jade Bracke",
-    "tagline": "Portraits, still life and interiors. Amsterdam.",
+    "tagline": "Portraits, still life and interiors.",
     "aboutBody": [
       {
         "_type": "block",
@@ -12,7 +12,7 @@
           {
             "_type": "span",
             "_key": "a1s",
-            "text": "Jade Bracke photographs people, objects and rooms for brands, hotels, studios and magazines. She works from Amsterdam and travels for commissions.",
+            "text": "Jade Bracke photographs people, objects and rooms for brands, hotels, studios and magazines. She travels for commissions.",
             "marks": []
           }
         ]
@@ -59,11 +59,11 @@
     "email": "hello@jadebracke.com",
     "phone": "",
     "instagram": "jadebracke",
-    "location": "Amsterdam",
+    "location": "",
     "cvItems": [
       {
         "year": "2025",
-        "text": "Sitters, solo presentation, Amsterdam"
+        "text": "Sitters, solo presentation"
       },
       {
         "year": "2024",
@@ -79,7 +79,7 @@
       },
       {
         "year": "2022",
-        "text": "Proof, group show, Rotterdam"
+        "text": "Proof, group show"
       }
     ],
     "clientList": [
@@ -93,7 +93,7 @@
     "availabilityNote": "Booking from November 2026.",
     "seoDefaults": {
       "title": "Jade Bracke",
-      "description": "Jade Bracke is a photographer in Amsterdam working in portrait, still life, interiors and editorial photography.",
+      "description": "Jade Bracke is a photographer working in portrait, still life, interiors and editorial photography.",
       "ogImage": {
         "image": "p01",
         "alt": "Flat grey water under a pale sky",
@@ -120,7 +120,6 @@
       "title": "Noord",
       "slug": "noord",
       "year": 2023,
-      "location": "Amsterdam-Noord",
       "discipline": "documentary",
       "featured": true,
       "publishedAt": "2023-11-02T09:00:00Z",
@@ -134,7 +133,7 @@
             {
               "_type": "span",
               "_key": "noords",
-              "text": "Ferry crossings, sheds and the water at the end of the street. Shot over one winter in Amsterdam-Noord, mostly before nine in the morning, on the days the light was flat.",
+              "text": "Ferry crossings, sheds and the water at the end of the street. Shot over one winter, mostly before nine in the morning, on the days the light was flat.",
               "marks": []
             }
           ]
@@ -181,7 +180,7 @@
           "alt": "A pale green-grey field, softly vignetted",
           "displayWidth": "column",
           "pairWithNext": false,
-          "caption": "Allotments, Buiksloterham"
+          "caption": "Allotments"
         }
       ]
     },
@@ -189,7 +188,6 @@
       "title": "Stil",
       "slug": "stil",
       "year": 2025,
-      "location": "Amsterdam",
       "client": "Studio Ode",
       "discipline": "still-life",
       "featured": true,
@@ -254,7 +252,6 @@
       "title": "Kamer",
       "slug": "kamer",
       "year": 2024,
-      "location": "Amsterdam",
       "client": "Huis Ten",
       "discipline": "interiors",
       "featured": true,
@@ -269,7 +266,7 @@
             {
               "_type": "span",
               "_key": "kamers",
-              "text": "A canal house on the Keizersgracht after its renovation by Huis Ten. Photographed over two days at the hours the rooms were built for: early and late.",
+              "text": "A canal house after its renovation by Huis Ten. Photographed over two days at the hours the rooms were built for: early and late.",
               "marks": []
             }
           ]
@@ -329,7 +326,6 @@
       "title": "Sitters",
       "slug": "sitters",
       "year": 2025,
-      "location": "Amsterdam",
       "discipline": "portrait",
       "featured": true,
       "publishedAt": "2025-06-05T09:00:00Z",
@@ -390,7 +386,6 @@
       "title": "Table",
       "slug": "table",
       "year": 2024,
-      "location": "Antwerp",
       "client": "Maison Roos",
       "discipline": "editorial",
       "featured": true,
@@ -465,7 +460,6 @@
       "title": "Red",
       "slug": "red",
       "year": 2025,
-      "location": "Amsterdam",
       "discipline": "still-life",
       "featured": false,
       "publishedAt": "2025-08-01T09:00:00Z",
@@ -517,7 +511,6 @@
       "title": "Proof",
       "slug": "proof",
       "year": 2022,
-      "location": "Rotterdam",
       "discipline": "documentary",
       "featured": false,
       "publishedAt": "2022-05-10T09:00:00Z",
@@ -531,7 +524,7 @@
             {
               "_type": "span",
               "_key": "proofs",
-              "text": "Twenty frames from a year of walking the port. The long series, kept whole so the sequence reads.",
+              "text": "Twenty frames from a year of walking a port. The long series, kept whole so the sequence reads.",
               "marks": []
             }
           ]

@@ -17,7 +17,6 @@ const { settings } = await getSite();
       <dl class="v5-dl">
         {settings.phone && (<><dt>Phone</dt><dd><a href={`tel:${settings.phone.replace(/\s+/g, '')}`}>{settings.phone}</a></dd></>)}
         {settings.instagram && (<><dt>Instagram</dt><dd><a href={`https://www.instagram.com/${settings.instagram}/`} rel="me">@{settings.instagram}</a></dd></>)}
-        <dt>Based in</dt><dd>{settings.location}</dd>
         <dt>Commissions</dt><dd>Editorial, hospitality, interiors, portraits and still life. Prints to order.</dd>
       </dl>
     </div>

@@ -13,7 +13,6 @@ const { settings } = await getSite();
     <address class="v2-links v2-small">
       {settings.phone && <a href={`tel:${settings.phone.replace(/\s+/g, '')}`}>{settings.phone}</a>}
       {settings.instagram && <a href={`https://www.instagram.com/${settings.instagram}/`} rel="me">@{settings.instagram}</a>}
-      <span>{settings.location}</span>
     </address>
     {settings.availabilityNote && <p class="v2-muted">{settings.availabilityNote}</p>}
   </section>

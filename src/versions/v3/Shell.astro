@@ -23,12 +23,14 @@ interface Props {
   text?: boolean;
   /** Label for the mobile bar (defaults to the page title). */
   barTitle?: string;
+  /** Home: centred wordmark panel. */
+  mark?: boolean;
 }
-const { settings, title, description, image, type, jsonLd, preload, noindex, text = false, barTitle } = Astro.props;
+const { settings, title, description, image, type, jsonLd, preload, noindex, text = false, barTitle, mark = false } = Astro.props;
 const path = Astro.url.pathname;
 ---
 
-<Base version="v3" {title} {description} siteName={settings.photographerName} {image} {type} {jsonLd} {preload} {noindex} fonts={['zodiak-300.woff2', 'general-sans-400.woff2']}>
+<Base version="v3" {title} {description} siteName={settings.photographerName} {image} {type} {jsonLd} {preload} {noindex} fonts={['switzer-200.woff2', 'general-sans-400.woff2']}>
   <div class:list={['split', text && 'split--text']} data-split>
     <div class="split__bar" data-bar>
       <a class="v3-wordmark" href={href('v3')}>{settings.photographerName}</a>
@@ -36,7 +38,7 @@ const path = Astro.url.pathname;
     </div>
     <div class="split__panel">
       <a class="v3-wordmark" href={href('v3')}>{settings.photographerName}</a>
-      <main id="main" class="split__body">
+      <main id="main" class:list={['split__body', mark && 'split__body--mark']}>
         <slot name="panel" />
       </main>
       <nav class="split__nav" aria-label="Main">

@@ -33,7 +33,7 @@ const path = Astro.url.pathname;
     <slot />
   </main>
   <footer class="v5-foot">
-    <span>{settings.photographerName}, {settings.location}</span>
+    <span>{settings.photographerName}</span>
     <span>
       <a href={`mailto:${settings.email}`}>{settings.email}</a>
       {settings.instagram && (<> <a href={`https://www.instagram.com/${settings.instagram}/`} rel="me">Instagram</a></>)}

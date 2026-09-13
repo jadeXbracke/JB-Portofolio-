@@ -17,7 +17,6 @@ const SIZES = '(min-width: 60em) 70vw, 100vw';
     <address class="v3-links">
       {settings.phone && <a href={`tel:${settings.phone.replace(/\s+/g, '')}`}>{settings.phone}</a>}
       {settings.instagram && <a href={`https://www.instagram.com/${settings.instagram}/`} rel="me">@{settings.instagram}</a>}
-      <span>{settings.location}</span>
     </address>
     {settings.availabilityNote && <p class="v3-small">{settings.availabilityNote}</p>}
   </Fragment>

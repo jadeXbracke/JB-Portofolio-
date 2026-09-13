@@ -15,7 +15,7 @@ to all five. Each version is a complete site: home, work, series pages, about, c
 
 | Route | Name | In one sentence |
 | --- | --- | --- |
-| `/v1` | Spread | The magazine spread: an enormous thin title on paper next to a full-page photograph. |
+| `/v1` | Spread | The magazine spread: a full-page photograph next to an enormous thin sans title on paper. |
 | `/v2` | Specter | One photograph at a time on a bone field, a small wordmark, a single word for a menu. |
 | `/v3` | Split | A hard white type panel against saturated full-bleed colour, 40/60. |
 | `/v4` | Cinema | A screening room: black, one frame per screen, title tiny in the corner. |
@@ -130,7 +130,7 @@ file. Components never contain raw values.
 
 - **Accent colour** (v3 only has one): change `--wine` in `v3.tokens.css`.
 - **Typeface:** change `--font-display` / `--font-body` (or `--font` in v2) in the token
-  file. The comment at the top names the paid upgrade path (PP Editorial New, Söhne, GT
+  file. Display faces are thin sans throughout: Jost 200 (v1, v2), Switzer 200 (v3), Jost 300 (v4). The comment at the top names the paid upgrade path (PP Editorial New, Söhne, GT
   Alpina, ABC Marfa). Put the licensed `.woff2` files in `public/fonts/` and add matching
   `@font-face` rules to `src/styles/fonts.css`; nothing else changes.
 - **Type scale:** `--ratio` (1.25 or 1.333) and `--step-0` (the body size). Every other
@@ -360,7 +360,7 @@ DESIGN-NOTES.md          the design plan and the self-review against the brief
 - The Fontshare font files could not be downloaded from the build environment (its
   network policy blocks fontshare.com). `npm run fonts` fetches them on any normal
   machine; until then the site uses the system fallback stacks declared in each token
-  file. Jost (Google Fonts) is fetched and committed. The review screenshots in this
+  file. Jost (Google Fonts) is fetched and committed and is the real display face of v1, v2 and v4. The review screenshots in this
   session used renamed Google stand-ins installed only in that environment.
 - The Studio's drag-to-reorder at 390px was checked against Sanity's own layout, not a
   live dataset (no project credentials in the build environment). See section 2.

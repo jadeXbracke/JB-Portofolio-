@@ -38,7 +38,6 @@ const path = Astro.url.pathname;
   <footer class="v2-foot">
     <a href={`mailto:${settings.email}`}>{settings.email}</a>
     {settings.instagram && <a href={`https://www.instagram.com/${settings.instagram}/`} rel="me">Instagram</a>}
-    <span>{settings.location}</span>
   </footer>
   <script>
     const menu = document.querySelector<HTMLElement>('[data-menu]');

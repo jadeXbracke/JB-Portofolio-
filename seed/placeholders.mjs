@@ -45,12 +45,12 @@ export const PLACEHOLDERS = {
       g('st', [[0, '#b8b0a4'], [1, '#7d766c']], 0, 0, 1, 1),
       `<rect width="4800" height="3200" fill="url(#st)"/><rect x="2900" y="0" width="1900" height="3200" fill="#8c8479" opacity=".35"/>`),
   },
-  // red — the saturated still-life field (Display P3 tagged)
+  // red — the saturated still-life field (Display P3 tagged): a red ground with a table edge
   p05: {
     w: 3840, h: 4800, p3: true,
     svg: () => svg(3840, 4800,
-      r('rd', [[0, '#d11a26'], [0.55, '#8c0f19'], [1, '#3f070c']], 0.5, 0.58, 0.75) + r('hi', [[0, '#e63a3a'], [1, '#e63a3a00']], 0.42, 0.5, 0.22),
-      `<rect width="3840" height="4800" fill="url(#rd)"/><ellipse cx="1600" cy="2400" rx="900" ry="650" fill="url(#hi)"/><ellipse cx="1900" cy="3650" rx="1300" ry="160" fill="#2a0508" opacity=".6"/>`),
+      g('wall', [[0, '#7a0f1a'], [0.7, '#a3121f'], [1, '#b8151f']]) + g('table', [[0, '#c4262c'], [1, '#9b1420']]),
+      `<rect width="3840" height="4800" fill="url(#wall)"/><rect y="3400" width="3840" height="1400" fill="url(#table)"/><rect y="3390" width="3840" height="20" fill="#5a0a10" opacity=".7"/>`),
   },
   // band — cool grey with a lit vertical band
   p06: {

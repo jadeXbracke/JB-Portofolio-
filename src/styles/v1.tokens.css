@@ -12,7 +12,8 @@
     --rule: #dcdcd8;
     --focus: var(--ink);
 
-    --font-display: 'Boska', 'Bodoni 72', Didot, 'Times New Roman', serif;
+    /* The reference spread is a thin, wide sans in caps — Jost 200 tracked out, not a serif */
+    --font-display: 'Jost', 'Futura', 'Avenir Next', 'Century Gothic', sans-serif;
     --font-body: 'Switzer', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
     /* Modular scale, ratio 1.333 (perfect fourth), base 17px */
@@ -30,15 +31,15 @@
     --step-8: calc(var(--step-7) * var(--ratio));
 
     /* The display sizes are fluid between scale steps, never magic numbers in components */
-    --display-xl: clamp(var(--step-3), 7vw, var(--step-8));
+    --display-xl: clamp(var(--step-3), 7.6vw, var(--step-8));
     --display-l: clamp(var(--step-2), 5vw, var(--step-6));
     --display-m: clamp(var(--step-1), 3vw, var(--step-4));
 
     --weight-display: 200;
     --weight-body: 300;
-    --track-display: 0.24em;
+    --track-display: 0.2em;
     --track-ui: 0.18em;
-    --leading-display: 0.96;
+    --leading-display: 1.02;
     --leading-body: 1.6;
     --measure: 62ch;
     --measure-standfirst: 36ch;

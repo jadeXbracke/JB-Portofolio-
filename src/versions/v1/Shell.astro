@@ -18,8 +18,10 @@ interface Props {
   noindex?: boolean;
   /** Header confined to the left page (pages that open with a spread). */
   half?: boolean;
+  /** Header on the right page (cover spread with the photograph on the left). */
+  right?: boolean;
 }
-const { settings, title, description, image, type, jsonLd, preload, noindex, half = false } = Astro.props;
+const { settings, title, description, image, type, jsonLd, preload, noindex, half = false, right = false } = Astro.props;
 const path = Astro.url.pathname;
 ---
 
@@ -33,10 +35,10 @@ const path = Astro.url.pathname;
   {jsonLd}
   {preload}
   {noindex}
-  fonts={['boska-200.woff2', 'switzer-300.woff2']}
+  fonts={['jost-variable.woff2', 'switzer-300.woff2']}
 >
   <Fragment slot="head"><ClientRouter /></Fragment>
-  <header class:list={['v1-head', half && 'v1-head--half']}>
+  <header class:list={['v1-head', half && 'v1-head--half', right && 'v1-head--right']}>
     <a href={href('v1')} aria-current={isCurrent(path, 'v1', '') ? 'page' : undefined}>{settings.photographerName}</a>
     <nav class="v1-nav" aria-label="Main">
       {NAV.map((n) => (
@@ -50,7 +52,7 @@ const path = Astro.url.pathname;
     <slot />
   </main>
   <footer class="v1-foot">
-    <p>{settings.photographerName}, {settings.location}</p>
+    <p>{settings.photographerName}</p>
     <p>
       <a href={`mailto:${settings.email}`}>{settings.email}</a>
       {settings.instagram && (

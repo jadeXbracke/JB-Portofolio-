@@ -24,9 +24,7 @@ const LATIN =
 
 // family -> { fontshare slug, weights }  (Jost comes from Google below)
 const FONTSHARE = {
-  Boska: { slug: 'boska', weights: [200, 300] },
-  Zodiak: { slug: 'zodiak', weights: [300, 400] },
-  Switzer: { slug: 'switzer', weights: [300, 400, 500] },
+  Switzer: { slug: 'switzer', weights: [200, 300, 400, 500] },
   'General Sans': { slug: 'general-sans', weights: [300, 400, 500] },
   Erode: { slug: 'erode', weights: [300, 400] },
 };

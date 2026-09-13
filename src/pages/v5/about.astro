@@ -14,7 +14,6 @@ const SIZES = '(min-width: 60em) 13rem, 100vw';
     <aside class="v5-page__aside v5-mono">
       <h1>{settings.photographerName}</h1>
       {settings.portrait && <Pic photo={settings.portrait} sizes={SIZES} priority />}
-      <p class="v5-dim">{settings.location}</p>
     </aside>
     <div class="v5-page__body">
       <div class="v5-prose v5-prose--long" set:html={toHtml(settings.aboutBody)} />

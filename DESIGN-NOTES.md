@@ -254,3 +254,12 @@ and 6 of the brief before the next one started. Changes made as a result:
   replacing the v1 "series as cover story" title and the v3 tagline headline). The hero
   series remains the picture and is named in the byline line beneath the title. Series
   pages keep their series titles: those are content.
+- **No location anywhere on the site** (client request). The `location` field stays in
+  Site settings as optional structured data only; nothing renders it, and the seed carries
+  no place names.
+- **Display type is thin sans in every version** (client review against the references).
+  The three references are all thin, wide-tracked sans capitals; the serif displays in v1
+  (Boska) and v3 (Zodiak) read as a different world and were replaced: v1 Jost 200 with
+  Switzer body, v3 Switzer 200 with General Sans body. v1's cover spread now mirrors the
+  reference exactly: photograph on the left page, title at the top of the right page,
+  standfirst tiny. v3's home panel carries the centred wordmark and nothing else.

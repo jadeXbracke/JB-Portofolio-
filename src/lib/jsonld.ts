@@ -15,7 +15,7 @@ export function personLd(s: SiteSettings, site: URL | undefined, pageUrl: string
     email: `mailto:${s.email}`,
     telephone: s.phone,
     url: pageUrl,
-    address: { '@type': 'PostalAddress', addressLocality: s.location, addressCountry: 'NL' },
+    address: s.location ? { '@type': 'PostalAddress', addressLocality: s.location } : undefined,
     sameAs: s.instagram ? [`https://www.instagram.com/${s.instagram}/`] : undefined,
     image: s.portrait ? ldImageUrl(s.portrait) : undefined,
   };

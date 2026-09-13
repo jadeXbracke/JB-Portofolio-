@@ -12,10 +12,9 @@ const hs = homepage.heroSeries!;
 const SIZES = '(min-width: 60em) 70vw, 100vw';
 ---
 
-<Shell {settings} title={settings.seoDefaults.title} description={settings.seoDefaults.description} image={ogImageUrl(settings.seoDefaults.ogImage ?? hero)} preload={preloadAttrs(hero, SIZES)} jsonLd={[personLd(settings, Astro.site, Astro.url.toString())]} barTitle={settings.photographerName}>
+<Shell {settings} title={settings.seoDefaults.title} description={settings.seoDefaults.description} image={ogImageUrl(settings.seoDefaults.ogImage ?? hero)} preload={preloadAttrs(hero, SIZES)} jsonLd={[personLd(settings, Astro.site, Astro.url.toString())]} barTitle={settings.photographerName} mark>
   <Fragment slot="panel">
     <h1 class="v3-display">{settings.photographerName}</h1>
-    <p>{settings.tagline}</p>
     <p class="v3-small"><a href={href('v3', `/work/${hs.slug}`)} style="text-decoration:none">{hs.title}, {hs.year}</a></p>
   </Fragment>
   <a href={href('v3', `/work/${hs.slug}`)} aria-label={`Open ${hs.title}`}>

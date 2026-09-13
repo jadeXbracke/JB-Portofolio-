@@ -24,8 +24,9 @@ const spreads = homepage.selectedWork.filter((s) => s.slug !== heroSeries.slug);
   preload={preloadAttrs(hero, SIZES)}
   jsonLd={[personLd(settings, Astro.site, Astro.url.toString())]}
   half
+  right
 >
-  <section class="spread" aria-labelledby="hero-title">
+  <section class="spread spread--cover" aria-labelledby="hero-title">
     <div class="spread__page">
       <div class="spread__title">
         <h1 id="hero-title" class="v1-display v1-display--xl">{settings.photographerName}</h1>
@@ -42,7 +43,7 @@ const spreads = homepage.selectedWork.filter((s) => s.slug !== heroSeries.slug);
 
   {
     spreads.map((s, i) => (
-      <section class:list={['spread', i % 2 === 0 && 'spread--flip']} aria-labelledby={`s-${s.slug}`}>
+      <section class:list={['spread', i % 2 === 1 && 'spread--flip']} aria-labelledby={`s-${s.slug}`}>
         <div class="spread__page">
           <div class="spread__title">
             <h2 id={`s-${s.slug}`} class="v1-display v1-display--l">
