@@ -1,0 +1,26 @@
+---
+import Shell from '@/versions/v4/Shell.astro';
+import { getSite } from '@/lib/cms';
+import { ogImageUrl } from '@/lib/image';
+import { href } from '@/lib/site';
+import { DISCIPLINE_LABEL } from '@/lib/types';
+const { settings, series } = await getSite();
+---
+
+<Shell {settings} title="Work" description={`Series by ${settings.photographerName}: ${series.map((s) => s.title).join(', ')}.`} image={ogImageUrl(series[0]?.cover)}>
+  <section class="programme">
+    <h1 class="v4-small">Programme</h1>
+    <ol>
+      {
+        series.map((s) => (
+          <li>
+            <a class="v4-display" href={href('v4', `/work/${s.slug}`)}>
+              {s.title}
+              <span>{s.year}, {DISCIPLINE_LABEL[s.discipline]}, {s.images.length} frames{s.location ? `, ${s.location}` : ''}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+</Shell>

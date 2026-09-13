@@ -1,0 +1,74 @@
+---
+/**
+ * The contact sheet. Every cell: a button that opens the frame in place. Filtering and
+ * opening are state changes handled by the script at the bottom; no animation.
+ */
+import Pic from '@/components/Pic.astro';
+import { QUALITY } from '@/lib/image';
+import type { Photo, Series } from '@/lib/types';
+import { DISCIPLINE_LABEL } from '@/lib/types';
+
+interface Props {
+  items: { photo: Photo; series: Series; index: number }[];
+  variant?: 'archive' | 'series';
+  captions?: boolean;
+}
+const { items, variant = 'archive', captions = false } = Astro.props;
+const SIZES = variant === 'archive' ? '(min-width: 60em) 12vw, 33vw' : '(min-width: 60em) 18vw, 50vw';
+const OPEN_SIZES = variant === 'archive' ? '(min-width: 60em) calc(100vw - 15rem), 100vw' : '100vw';
+---
+
+<ol class:list={['sheet', variant === 'series' && 'sheet--series']} data-sheet>
+  {
+    items.map(({ photo, series, index }, i) => (
+      <li
+        class:list={['cell', photo.width >= photo.height ? 'cell--land' : 'cell--port']}
+        data-year={series.year}
+        data-discipline={series.discipline}
+        data-series={series.slug}
+      >
+        <button type="button" class="cell__open" aria-expanded="false" aria-label={`Open frame ${index + 1} of ${series.title}`} data-open-sizes={OPEN_SIZES} data-grid-sizes={SIZES}>
+          <Pic photo={photo} sizes={SIZES} quality={QUALITY.grid} priority={i === 0} />
+        </button>
+        {captions && photo.caption && <p class="cell__caption">{photo.caption}</p>}
+        <dl class="cell__meta v5-mono">
+          <dt>Series</dt><dd><a href={`/v5/work/${series.slug}`}>{series.title}</a></dd>
+          <dt>Frame</dt><dd>{String(index + 1).padStart(2, '0')} / {String(series.images.length).padStart(2, '0')}</dd>
+          <dt>Year</dt><dd>{series.year}</dd>
+          <dt>Discipline</dt><dd>{DISCIPLINE_LABEL[series.discipline]}</dd>
+          {series.location && (<><dt>Location</dt><dd>{series.location}</dd></>)}
+          {photo.caption && (<><dt>Caption</dt><dd>{photo.caption}</dd></>)}
+          <dt>Description</dt><dd>{photo.alt}</dd>
+          <dt>File</dt><dd>{photo.width} × {photo.height}</dd>
+        </dl>
+      </li>
+    ))
+  }
+</ol>
+<script>
+  // Open in place: one cell at a time; `sizes` is swapped so the browser fetches the
+  // larger candidate from the same srcset. Escape closes.
+  const sheet = document.querySelector<HTMLElement>('[data-sheet]');
+  if (sheet) {
+    const close = (cell: HTMLElement) => {
+      cell.classList.remove('is-open');
+      const b = cell.querySelector<HTMLButtonElement>('.cell__open')!;
+      b.setAttribute('aria-expanded', 'false');
+      b.querySelector('img')?.setAttribute('sizes', b.dataset.gridSizes!);
+    };
+    sheet.addEventListener('click', (e) => {
+      const b = (e.target as HTMLElement).closest<HTMLButtonElement>('.cell__open');
+      if (!b) return;
+      const cell = b.closest<HTMLElement>('.cell')!;
+      const wasOpen = cell.classList.contains('is-open');
+      sheet.querySelectorAll<HTMLElement>('.cell.is-open').forEach(close);
+      if (!wasOpen) {
+        cell.classList.add('is-open');
+        b.setAttribute('aria-expanded', 'true');
+        b.querySelector('img')?.setAttribute('sizes', b.dataset.openSizes!);
+        cell.scrollIntoView({ block: 'start', behavior: 'auto' });
+      }
+    });
+    document.addEventListener('keydown', (e) => e.key === 'Escape' && sheet.querySelectorAll<HTMLElement>('.cell.is-open').forEach(close));
+  }
+</script>

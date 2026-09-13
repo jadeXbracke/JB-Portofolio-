@@ -1,0 +1,52 @@
+---
+/**
+ * The one image component. See src/lib/image.ts for the delivery rules.
+ *
+ * - Explicit width/height + reserved aspect-ratio on the wrapper: CLS 0.
+ * - LQIP painted as the wrapper background; the real image fades in over it once (no
+ *   skeleton, no shimmer). Without JS the image is simply visible.
+ * - `priority` marks the first image on the page: eager, high priority, sync decode.
+ *   Pair it with `preloadAttrs()` in the page's head.
+ * - `fill` is the only mode that crops, and it crops where the hotspot says.
+ */
+import type { Photo } from '@/lib/types';
+import { fallbackSrc, objectPosition, QUALITY, srcSet } from '@/lib/image';
+
+interface Props {
+  photo: Photo;
+  /** The `sizes` attribute for this placement. Never a blanket 100vw unless it truly is. */
+  sizes: string;
+  priority?: boolean;
+  quality?: number;
+  fill?: boolean;
+  class?: string;
+  style?: string;
+  /** Override the alt (e.g. empty when the caption already says it). Defaults to CMS alt. */
+  alt?: string;
+}
+
+const { photo, sizes, priority = false, quality = QUALITY.single, fill = false, class: className, style, alt } = Astro.props;
+const wrapperStyle = [
+  `--ar:${photo.width}/${photo.height}`,
+  photo.lqip ? `--lqip:url("${photo.lqip}")` : '',
+  fill ? `--pos:${objectPosition(photo)}` : '',
+  style ?? '',
+]
+  .filter(Boolean)
+  .join(';');
+---
+
+<div class:list={['pic', fill && 'pic--fill', className]} style={wrapperStyle} data-pic>
+  <img
+    src={fallbackSrc(photo, quality)}
+    srcset={srcSet(photo, quality)}
+    sizes={sizes}
+    width={photo.width}
+    height={photo.height}
+    alt={alt ?? photo.alt}
+    loading={priority ? 'eager' : 'lazy'}
+    decoding={priority ? 'sync' : 'async'}
+    fetchpriority={priority ? 'high' : 'auto'}
+    onload="this.parentNode.classList.add('is-loaded')"
+  />
+</div>

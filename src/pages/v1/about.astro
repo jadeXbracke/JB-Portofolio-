@@ -1,0 +1,53 @@
+---
+import Shell from '@/versions/v1/Shell.astro';
+import Pic from '@/components/Pic.astro';
+import { getSite } from '@/lib/cms';
+import { ogImageUrl, preloadAttrs } from '@/lib/image';
+import { personLd } from '@/lib/jsonld';
+import { toHtml, toText, words } from '@/lib/portable';
+
+const { settings } = await getSite();
+const SIZES = '(min-width: 60em) 24rem, 100vw';
+---
+
+<Shell
+  {settings}
+  title="About"
+  description={words(toText(settings.aboutBody), 30)}
+  image={ogImageUrl(settings.portrait ?? settings.seoDefaults.ogImage)}
+  preload={settings.portrait ? preloadAttrs(settings.portrait, SIZES) : undefined}
+  jsonLd={[personLd(settings, Astro.site, Astro.url.toString())]}
+>
+  <section class="page">
+    <div class="page__aside">
+      <h1 class="v1-display v1-display--l">{settings.photographerName}</h1>
+      {settings.portrait && <div class="page__portrait"><Pic photo={settings.portrait} sizes={SIZES} priority /></div>}
+    </div>
+    <div class="page__body">
+      <div class="v1-prose" set:html={toHtml(settings.aboutBody)} />
+      {
+        settings.cvItems.length > 0 && (
+          <section aria-labelledby="cv">
+            <h2 id="cv" class="v1-small" style="margin-bottom: var(--space-3)">Selected</h2>
+            <ol class="list">
+              {settings.cvItems.map((c) => (
+                <li class="list__row">
+                  <span style="color: var(--grey-text)">{c.year}</span>
+                  <span>{c.text}</span>
+                </li>
+              ))}
+            </ol>
+          </section>
+        )
+      }
+      {
+        settings.clientList.length > 0 && (
+          <section aria-labelledby="clients">
+            <h2 id="clients" class="v1-small" style="margin-bottom: var(--space-3)">Clients</h2>
+            <p class="v1-prose">{settings.clientList.join(', ')}</p>
+          </section>
+        )
+      }
+    </div>
+  </section>
+</Shell>

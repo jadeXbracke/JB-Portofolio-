@@ -1,0 +1,40 @@
+{
+  "name": "jadebracke-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build && node scripts/postbuild.mjs",
+    "prebuild": "node seed/generate-images.mjs --if-missing",
+    "predev": "node seed/generate-images.mjs --if-missing",
+    "preview": "astro preview",
+    "check": "astro check",
+    "fonts": "node scripts/fetch-fonts.mjs",
+    "seed:images": "node seed/generate-images.mjs",
+    "seed:upload": "node seed/upload.mjs",
+    "screenshots": "node scripts/screenshots.mjs",
+    "lighthouse": "node scripts/lighthouse.mjs"
+  },
+  "dependencies": {
+    "@astrojs/react": "^4.4.2",
+    "@astrojs/sitemap": "^3.6.1",
+    "@sanity/astro": "^3.5.1",
+    "@sanity/client": "^8.6.1",
+    "@sanity/image-url": "^2.1.1",
+    "@sanity/orderable-document-list": "^2.0.23",
+    "astro": "^5.18.2",
+    "react": "^19.2.2",
+    "react-dom": "^19.2.2",
+    "sanity": "^6.13.2",
+    "styled-components": "^6.1.19"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "sharp": "^0.35.4",
+    "typescript": "^5.9.0"
+  }
+}

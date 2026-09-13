@@ -1,0 +1,670 @@
+{
+  "siteSettings": {
+    "photographerName": "Jade Bracke",
+    "tagline": "Portraits, still life and interiors. Amsterdam.",
+    "aboutBody": [
+      {
+        "_type": "block",
+        "_key": "a1",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "_key": "a1s",
+            "text": "Jade Bracke photographs people, objects and rooms for brands, hotels, studios and magazines. She works from Amsterdam and travels for commissions.",
+            "marks": []
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "_key": "a2",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "_key": "a2s",
+            "text": "The work is quiet on purpose: available light where possible, one camera, and enough time in the room to stop noticing it. Commissions usually run from a day to a week, with a small crew or none.",
+            "marks": []
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "_key": "a3",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "_key": "a3s",
+            "text": "Prints are made to order from the original files. Enquiries about editorial, hospitality and interior commissions are welcome by email.",
+            "marks": []
+          }
+        ]
+      }
+    ],
+    "portrait": {
+      "image": "p03",
+      "alt": "Jade Bracke, photographed in her studio",
+      "displayWidth": "column",
+      "pairWithNext": false,
+      "focal": [
+        0.5,
+        0.4
+      ]
+    },
+    "email": "hello@jadebracke.com",
+    "phone": "",
+    "instagram": "jadebracke",
+    "location": "Amsterdam",
+    "cvItems": [
+      {
+        "year": "2025",
+        "text": "Sitters, solo presentation, Amsterdam"
+      },
+      {
+        "year": "2024",
+        "text": "Maison Roos, cookbook photography"
+      },
+      {
+        "year": "2024",
+        "text": "Huis Ten, project documentation"
+      },
+      {
+        "year": "2023",
+        "text": "Noord, self-published, edition of 200"
+      },
+      {
+        "year": "2022",
+        "text": "Proof, group show, Rotterdam"
+      }
+    ],
+    "clientList": [
+      "Studio Ode",
+      "Huis Ten",
+      "Maison Roos",
+      "Hotel Warmoes",
+      "Atelier Vos",
+      "Tafel Magazine"
+    ],
+    "availabilityNote": "Booking from November 2026.",
+    "seoDefaults": {
+      "title": "Jade Bracke",
+      "description": "Jade Bracke is a photographer in Amsterdam working in portrait, still life, interiors and editorial photography.",
+      "ogImage": {
+        "image": "p01",
+        "alt": "Flat grey water under a pale sky",
+        "displayWidth": "full",
+        "pairWithNext": false
+      }
+    }
+  },
+  "homepage": {
+    "heroMode": "series",
+    "heroSeries": "noord",
+    "heroImage": null,
+    "selectedWork": [
+      "noord",
+      "stil",
+      "kamer",
+      "sitters",
+      "table",
+      "red"
+    ]
+  },
+  "series": [
+    {
+      "title": "Noord",
+      "slug": "noord",
+      "year": 2023,
+      "location": "Amsterdam-Noord",
+      "discipline": "documentary",
+      "featured": true,
+      "publishedAt": "2023-11-02T09:00:00Z",
+      "intro": [
+        {
+          "_type": "block",
+          "_key": "noord",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "noords",
+              "text": "Ferry crossings, sheds and the water at the end of the street. Shot over one winter in Amsterdam-Noord, mostly before nine in the morning, on the days the light was flat.",
+              "marks": []
+            }
+          ]
+        }
+      ],
+      "cover": {
+        "image": "p01",
+        "alt": "Flat grey water under a pale sky, the horizon a thin lighter line",
+        "displayWidth": "full",
+        "pairWithNext": false,
+        "focal": [
+          0.5,
+          0.55
+        ]
+      },
+      "images": [
+        {
+          "image": "p01",
+          "alt": "Flat grey water under a pale sky, the horizon a thin lighter line",
+          "displayWidth": "full",
+          "pairWithNext": false,
+          "caption": "IJ, seven in the morning"
+        },
+        {
+          "image": "p08",
+          "alt": "Blue-grey sky fading to sand at the bottom of the frame",
+          "displayWidth": "wide",
+          "pairWithNext": false
+        },
+        {
+          "image": "p12",
+          "alt": "A mid-grey field darkening at the edges",
+          "displayWidth": "half",
+          "pairWithNext": true
+        },
+        {
+          "image": "p04",
+          "alt": "Warm stone tones, a darker vertical band on the right",
+          "displayWidth": "half",
+          "pairWithNext": false
+        },
+        {
+          "image": "p10",
+          "alt": "A pale green-grey field, softly vignetted",
+          "displayWidth": "column",
+          "pairWithNext": false,
+          "caption": "Allotments, Buiksloterham"
+        }
+      ]
+    },
+    {
+      "title": "Stil",
+      "slug": "stil",
+      "year": 2025,
+      "location": "Amsterdam",
+      "client": "Studio Ode",
+      "discipline": "still-life",
+      "featured": true,
+      "publishedAt": "2025-03-14T09:00:00Z",
+      "intro": [
+        {
+          "_type": "block",
+          "_key": "stil",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "stils",
+              "text": "Ceramics and glass for Studio Ode, photographed on paper in north light. No styling beyond the object, its shadow and the edge of the table.",
+              "marks": []
+            }
+          ]
+        }
+      ],
+      "cover": {
+        "image": "p07",
+        "alt": "A soft grey rectangle on a near-white ground, its shadow falling below",
+        "displayWidth": "full",
+        "pairWithNext": false
+      },
+      "images": [
+        {
+          "image": "p07",
+          "alt": "A soft grey rectangle on a near-white ground, its shadow falling below",
+          "displayWidth": "wide",
+          "pairWithNext": false
+        },
+        {
+          "image": "p02",
+          "alt": "Warm off-white paper with a diagonal shadow crossing it",
+          "displayWidth": "column",
+          "pairWithNext": false
+        },
+        {
+          "image": "p05",
+          "alt": "A deep saturated red field, lighter at the centre, a dark shadow beneath",
+          "displayWidth": "half",
+          "pairWithNext": true,
+          "caption": "Glaze test, red"
+        },
+        {
+          "image": "p12",
+          "alt": "A mid-grey field darkening at the edges",
+          "displayWidth": "half",
+          "pairWithNext": false
+        },
+        {
+          "image": "p11",
+          "alt": "An ochre field with a single thin black line across it",
+          "displayWidth": "column",
+          "pairWithNext": false
+        }
+      ]
+    },
+    {
+      "title": "Kamer",
+      "slug": "kamer",
+      "year": 2024,
+      "location": "Amsterdam",
+      "client": "Huis Ten",
+      "discipline": "interiors",
+      "featured": true,
+      "publishedAt": "2024-09-20T09:00:00Z",
+      "intro": [
+        {
+          "_type": "block",
+          "_key": "kamer",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "kamers",
+              "text": "A canal house on the Keizersgracht after its renovation by Huis Ten. Photographed over two days at the hours the rooms were built for: early and late.",
+              "marks": []
+            }
+          ]
+        }
+      ],
+      "cover": {
+        "image": "p09",
+        "alt": "A dark room with one warm lit doorway at the centre",
+        "displayWidth": "full",
+        "pairWithNext": false,
+        "focal": [
+          0.62,
+          0.5
+        ]
+      },
+      "images": [
+        {
+          "image": "p09",
+          "alt": "A dark room with one warm lit doorway at the centre",
+          "displayWidth": "full",
+          "pairWithNext": false
+        },
+        {
+          "image": "p06",
+          "alt": "Cool grey wall with a lit vertical band of light",
+          "displayWidth": "column",
+          "pairWithNext": false,
+          "caption": "Stair, first floor"
+        },
+        {
+          "image": "p07",
+          "alt": "A soft grey rectangle on a near-white ground",
+          "displayWidth": "half",
+          "pairWithNext": true
+        },
+        {
+          "image": "p04",
+          "alt": "Warm stone tones, a darker vertical band on the right",
+          "displayWidth": "half",
+          "pairWithNext": false
+        },
+        {
+          "image": "p10",
+          "alt": "A pale green-grey field, softly vignetted",
+          "displayWidth": "wide",
+          "pairWithNext": false
+        },
+        {
+          "image": "p02",
+          "alt": "Warm off-white paper with a diagonal shadow",
+          "displayWidth": "column",
+          "pairWithNext": false
+        }
+      ]
+    },
+    {
+      "title": "Sitters",
+      "slug": "sitters",
+      "year": 2025,
+      "location": "Amsterdam",
+      "discipline": "portrait",
+      "featured": true,
+      "publishedAt": "2025-06-05T09:00:00Z",
+      "intro": [
+        {
+          "_type": "block",
+          "_key": "sitters",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "sitterss",
+              "text": "Twelve people who make things, each photographed in the room they make them in. One roll each, no assistant, available light.",
+              "marks": []
+            }
+          ]
+        }
+      ],
+      "cover": {
+        "image": "p03",
+        "alt": "A charcoal field with a soft lighter disc above centre",
+        "displayWidth": "full",
+        "pairWithNext": false,
+        "focal": [
+          0.5,
+          0.4
+        ]
+      },
+      "images": [
+        {
+          "image": "p03",
+          "alt": "A charcoal field with a soft lighter disc above centre",
+          "displayWidth": "column",
+          "pairWithNext": false
+        },
+        {
+          "image": "p06",
+          "alt": "Cool grey wall with a lit vertical band of light",
+          "displayWidth": "column",
+          "pairWithNext": false
+        },
+        {
+          "image": "p11",
+          "alt": "An ochre field with a single thin black line",
+          "displayWidth": "half",
+          "pairWithNext": true
+        },
+        {
+          "image": "p02",
+          "alt": "Warm off-white paper with a diagonal shadow",
+          "displayWidth": "half",
+          "pairWithNext": false
+        }
+      ]
+    },
+    {
+      "title": "Table",
+      "slug": "table",
+      "year": 2024,
+      "location": "Antwerp",
+      "client": "Maison Roos",
+      "discipline": "editorial",
+      "featured": true,
+      "publishedAt": "2024-11-28T09:00:00Z",
+      "intro": [
+        {
+          "_type": "block",
+          "_key": "table",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "tables",
+              "text": "Kitchen, dining room and cellar at Maison Roos for their first cookbook. Shot during service, printed as a sequence.",
+              "marks": []
+            }
+          ]
+        }
+      ],
+      "cover": {
+        "image": "p05",
+        "alt": "A deep saturated red field, lighter at the centre",
+        "displayWidth": "full",
+        "pairWithNext": false,
+        "focal": [
+          0.45,
+          0.5
+        ]
+      },
+      "images": [
+        {
+          "image": "p05",
+          "alt": "A deep saturated red field, lighter at the centre, a dark shadow beneath",
+          "displayWidth": "full",
+          "pairWithNext": false,
+          "caption": "Beetroot, cold"
+        },
+        {
+          "image": "p07",
+          "alt": "A soft grey rectangle on a near-white ground",
+          "displayWidth": "wide",
+          "pairWithNext": false
+        },
+        {
+          "image": "p09",
+          "alt": "A dark room with one warm lit doorway at the centre",
+          "displayWidth": "full",
+          "pairWithNext": false
+        },
+        {
+          "image": "p02",
+          "alt": "Warm off-white paper with a diagonal shadow",
+          "displayWidth": "half",
+          "pairWithNext": true
+        },
+        {
+          "image": "p11",
+          "alt": "An ochre field with a single thin black line",
+          "displayWidth": "half",
+          "pairWithNext": false
+        },
+        {
+          "image": "p04",
+          "alt": "Warm stone tones, a darker vertical band on the right",
+          "displayWidth": "wide",
+          "pairWithNext": false
+        }
+      ]
+    },
+    {
+      "title": "Red",
+      "slug": "red",
+      "year": 2025,
+      "location": "Amsterdam",
+      "discipline": "still-life",
+      "featured": false,
+      "publishedAt": "2025-08-01T09:00:00Z",
+      "intro": [
+        {
+          "_type": "block",
+          "_key": "red",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "reds",
+              "text": "Three pictures of one red. A colour test that became a series: the same glaze under three lights, printed at the same density.",
+              "marks": []
+            }
+          ]
+        }
+      ],
+      "cover": {
+        "image": "p05",
+        "alt": "A deep saturated red field, lighter at the centre",
+        "displayWidth": "full",
+        "pairWithNext": false
+      },
+      "images": [
+        {
+          "image": "p05",
+          "alt": "A deep saturated red field, lighter at the centre, a dark shadow beneath",
+          "displayWidth": "wide",
+          "pairWithNext": false,
+          "caption": "North light"
+        },
+        {
+          "image": "p11",
+          "alt": "An ochre field with a single thin black line",
+          "displayWidth": "column",
+          "pairWithNext": false
+        },
+        {
+          "image": "p02",
+          "alt": "Warm off-white paper with a diagonal shadow",
+          "displayWidth": "column",
+          "pairWithNext": false
+        }
+      ]
+    },
+    {
+      "title": "Proof",
+      "slug": "proof",
+      "year": 2022,
+      "location": "Rotterdam",
+      "discipline": "documentary",
+      "featured": false,
+      "publishedAt": "2022-05-10T09:00:00Z",
+      "intro": [
+        {
+          "_type": "block",
+          "_key": "proof",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "proofs",
+              "text": "Twenty frames from a year of walking the port. The long series, kept whole so the sequence reads.",
+              "marks": []
+            }
+          ]
+        }
+      ],
+      "cover": {
+        "image": "p08",
+        "alt": "Blue-grey sky fading to sand",
+        "displayWidth": "full",
+        "pairWithNext": false
+      },
+      "images": [
+        {
+          "image": "p08",
+          "alt": "Blue-grey sky fading to sand",
+          "displayWidth": "full",
+          "pairWithNext": false
+        },
+        {
+          "image": "p01",
+          "alt": "Flat grey water under a pale sky",
+          "displayWidth": "wide",
+          "pairWithNext": false
+        },
+        {
+          "image": "p12",
+          "alt": "A mid-grey field darkening at the edges",
+          "displayWidth": "column",
+          "pairWithNext": false
+        },
+        {
+          "image": "p04",
+          "alt": "Warm stone tones with a darker band",
+          "displayWidth": "half",
+          "pairWithNext": true
+        },
+        {
+          "image": "p10",
+          "alt": "A pale green-grey field",
+          "displayWidth": "half",
+          "pairWithNext": false
+        },
+        {
+          "image": "p06",
+          "alt": "Cool grey wall with a lit vertical band",
+          "displayWidth": "wide",
+          "pairWithNext": false
+        },
+        {
+          "image": "p03",
+          "alt": "A charcoal field with a soft lighter disc",
+          "displayWidth": "full",
+          "pairWithNext": false
+        },
+        {
+          "image": "p09",
+          "alt": "A dark room with one warm lit doorway",
+          "displayWidth": "wide",
+          "pairWithNext": false
+        },
+        {
+          "image": "p07",
+          "alt": "A soft grey rectangle on a near-white ground",
+          "displayWidth": "column",
+          "pairWithNext": false
+        },
+        {
+          "image": "p02",
+          "alt": "Warm off-white paper with a diagonal shadow",
+          "displayWidth": "half",
+          "pairWithNext": true
+        },
+        {
+          "image": "p11",
+          "alt": "An ochre field with a thin black line",
+          "displayWidth": "half",
+          "pairWithNext": false
+        },
+        {
+          "image": "p05",
+          "alt": "A deep saturated red field",
+          "displayWidth": "wide",
+          "pairWithNext": false
+        },
+        {
+          "image": "p08",
+          "alt": "Blue-grey sky fading to sand",
+          "displayWidth": "full",
+          "pairWithNext": false
+        },
+        {
+          "image": "p01",
+          "alt": "Flat grey water under a pale sky",
+          "displayWidth": "wide",
+          "pairWithNext": false
+        },
+        {
+          "image": "p12",
+          "alt": "A mid-grey field darkening at the edges",
+          "displayWidth": "column",
+          "pairWithNext": false
+        },
+        {
+          "image": "p04",
+          "alt": "Warm stone tones with a darker band",
+          "displayWidth": "half",
+          "pairWithNext": true
+        },
+        {
+          "image": "p10",
+          "alt": "A pale green-grey field",
+          "displayWidth": "half",
+          "pairWithNext": false
+        },
+        {
+          "image": "p06",
+          "alt": "Cool grey wall with a lit vertical band",
+          "displayWidth": "wide",
+          "pairWithNext": false
+        },
+        {
+          "image": "p03",
+          "alt": "A charcoal field with a soft lighter disc",
+          "displayWidth": "full",
+          "pairWithNext": false
+        },
+        {
+          "image": "p09",
+          "alt": "A dark room with one warm lit doorway",
+          "displayWidth": "wide",
+          "pairWithNext": false
+        }
+      ]
+    }
+  ]
+}

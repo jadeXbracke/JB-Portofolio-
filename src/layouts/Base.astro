@@ -1,0 +1,60 @@
+---
+/**
+ * The HTML shell shared by all five versions. Versions add their tokens + shell around
+ * the default slot; this layout owns <head>, the skip link and the accessibility floor.
+ */
+import { existsSync } from 'node:fs';
+import '@/styles/base.css';
+import '@/styles/fonts.css';
+import Seo from '@/components/Seo.astro';
+import type { PreloadAttrs } from '@/lib/image';
+import type { VersionId } from '@/lib/site';
+
+interface Props {
+  version: VersionId | 'root';
+  title: string;
+  description: string;
+  siteName: string;
+  image?: string;
+  type?: 'website' | 'article';
+  jsonLd?: Record<string, unknown>[];
+  preload?: PreloadAttrs;
+  /** Font files under /public/fonts to preload (only those that exist are emitted). */
+  fonts?: string[];
+  bodyClass?: string;
+  noindex?: boolean;
+}
+const { version, title, description, siteName, image, type, jsonLd, preload, fonts = [], bodyClass, noindex } =
+  Astro.props;
+const fontLinks = fonts.filter((f) => existsSync(new URL(`../../public/fonts/${f}`, import.meta.url)));
+---
+
+<!doctype html>
+<html lang="en" data-version={version}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <script is:inline>document.documentElement.classList.add('js');</script>
+    <Seo {title} {description} {siteName} {image} {type} {jsonLd} {noindex} />
+    {fontLinks.map((f) => <link rel="preload" as="font" type="font/woff2" href={`/fonts/${f}`} crossorigin />)}
+    {
+      preload && (
+        <link
+          rel="preload"
+          as="image"
+          href={preload.href}
+          imagesrcset={preload.imagesrcset}
+          imagesizes={preload.imagesizes}
+          fetchpriority="high"
+        />
+      )
+    }
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <slot name="head" />
+  </head>
+  <body class={bodyClass}>
+    <a class="skip" href="#main">Skip to content</a>
+    <slot />
+  </body>
+</html>

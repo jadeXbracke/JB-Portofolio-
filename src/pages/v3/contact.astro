@@ -1,0 +1,25 @@
+---
+import Shell from '@/versions/v3/Shell.astro';
+import Pic from '@/components/Pic.astro';
+import { getSite, heroPhoto } from '@/lib/cms';
+import { ogImageUrl, preloadAttrs } from '@/lib/image';
+import { personLd } from '@/lib/jsonld';
+
+const { settings, homepage } = await getSite();
+const photo = heroPhoto(homepage)!;
+const SIZES = '(min-width: 60em) 70vw, 100vw';
+---
+
+<Shell {settings} title="Contact" description={`Commission ${settings.photographerName}: ${settings.email}. ${settings.availabilityNote ?? ''}`.trim()} image={ogImageUrl(settings.seoDefaults.ogImage)} preload={preloadAttrs(photo, SIZES)} jsonLd={[personLd(settings, Astro.site, Astro.url.toString())]}>
+  <Fragment slot="panel">
+    <h1 class="v3-small">Commissions, prints, questions</h1>
+    <a class="v3-email" href={`mailto:${settings.email}`}>{settings.email}</a>
+    <address class="v3-links">
+      {settings.phone && <a href={`tel:${settings.phone.replace(/\s+/g, '')}`}>{settings.phone}</a>}
+      {settings.instagram && <a href={`https://www.instagram.com/${settings.instagram}/`} rel="me">@{settings.instagram}</a>}
+      <span>{settings.location}</span>
+    </address>
+    {settings.availabilityNote && <p class="v3-small">{settings.availabilityNote}</p>}
+  </Fragment>
+  <Pic photo={photo} sizes={SIZES} priority fill />
+</Shell>

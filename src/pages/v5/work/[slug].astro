@@ -1,0 +1,41 @@
+---
+import Shell from '@/versions/v5/Shell.astro';
+import Sheet from '@/versions/v5/Sheet.astro';
+import { getSite, neighbours } from '@/lib/cms';
+import { ogImageUrl, preloadAttrs, QUALITY } from '@/lib/image';
+import { seriesLd } from '@/lib/jsonld';
+import { toHtml, toText, words } from '@/lib/portable';
+import { href } from '@/lib/site';
+import { DISCIPLINE_LABEL } from '@/lib/types';
+
+export async function getStaticPaths() {
+  const { series } = await getSite();
+  return series.map((s) => ({ params: { slug: s.slug }, props: { slug: s.slug } }));
+}
+const { settings, series } = await getSite();
+const item = series.find((s) => s.slug === Astro.props.slug)!;
+const { next, index } = neighbours(series, item);
+const items = item.images.map((photo, i) => ({ photo, series: item, index: i }));
+const description = words(toText(item.intro), 30) || `${item.title}, ${item.year}. ${DISCIPLINE_LABEL[item.discipline]} by ${settings.photographerName}.`;
+---
+
+<Shell {settings} title={item.title} {description} type="article" image={ogImageUrl(item.cover)} preload={preloadAttrs(item.images[0], '(min-width: 60em) 18vw, 50vw', QUALITY.grid)} jsonLd={[seriesLd(item, settings, Astro.site, Astro.url.toString())]}>
+  <header class="index-head">
+    <div>
+      <h1>{item.title}</h1>
+      <dl class="v5-mono">
+        <dt>Nº</dt><dd>{String(index + 1).padStart(2, '0')}</dd>
+        <dt>Year</dt><dd>{item.year}</dd>
+        <dt>Discipline</dt><dd>{DISCIPLINE_LABEL[item.discipline]}</dd>
+        {item.location && (<><dt>Location</dt><dd>{item.location}</dd></>)}
+        {item.client && (<><dt>Client</dt><dd>{item.client}</dd></>)}
+        <dt>Frames</dt><dd>{item.images.length}</dd>
+      </dl>
+    </div>
+    <div class="v5-prose" set:html={toHtml(item.intro)} />
+  </header>
+  <Sheet {items} variant="series" captions />
+  <p class="index-next v5-mono">
+    {next ? <a href={href('v5', `/work/${next.slug}`)}>Next: {next.title}</a> : <a href={href('v5', '/work')}>All series</a>}
+  </p>
+</Shell>

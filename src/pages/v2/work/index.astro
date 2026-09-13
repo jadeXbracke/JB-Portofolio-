@@ -1,0 +1,47 @@
+---
+import Shell from '@/versions/v2/Shell.astro';
+import Pic from '@/components/Pic.astro';
+import { getSite } from '@/lib/cms';
+import { ogImageUrl, preloadAttrs, QUALITY } from '@/lib/image';
+import { href } from '@/lib/site';
+import { DISCIPLINE_LABEL } from '@/lib/types';
+
+const { settings, series } = await getSite();
+const SIZES = '100vw';
+---
+
+<Shell {settings} title="Work" description={`Series by ${settings.photographerName}: ${series.map((s) => s.title).join(', ')}.`} image={ogImageUrl(series[0]?.cover)} preload={series[0] ? preloadAttrs(series[0].cover, SIZES, QUALITY.grid) : undefined}>
+  <section class="names" data-names>
+    <div class="names__backdrop" aria-hidden="true">
+      {series.map((s, i) => <Pic photo={s.cover} sizes={SIZES} fill quality={QUALITY.grid} priority={i === 0} class={i === 0 ? 'is-active' : ''} alt="" />)}
+    </div>
+    <h1 class="sr-only">Work</h1>
+    <ul class="names__list">
+      {
+        series.map((s, i) => (
+          <li>
+            <a href={href('v2', `/work/${s.slug}`)} data-index={i}>
+              {s.title}
+              <span>{s.year} {DISCIPLINE_LABEL[s.discipline]}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+  <script>
+    // Hover or focus a name: the image behind the list cross-fades to that series' cover.
+    // Touch users tap through; the first cover stays behind the list.
+    const root = document.querySelector<HTMLElement>('[data-names]');
+    if (root) {
+      const pics = [...root.querySelectorAll<HTMLElement>('.names__backdrop .pic')];
+      const links = [...root.querySelectorAll<HTMLAnchorElement>('[data-index]')];
+      const activate = (n: number) => pics.forEach((p, k) => p.classList.toggle('is-active', k === n));
+      links.forEach((a) => {
+        const n = Number(a.dataset.index);
+        a.addEventListener('pointerenter', (e) => e.pointerType === 'mouse' && activate(n));
+        a.addEventListener('focus', () => activate(n));
+      });
+    }
+  </script>
+</Shell>

@@ -1,0 +1,46 @@
+---
+import Shell from '@/versions/v1/Shell.astro';
+import Pic from '@/components/Pic.astro';
+import { getSite } from '@/lib/cms';
+import { ogImageUrl, QUALITY } from '@/lib/image';
+import { href } from '@/lib/site';
+import { DISCIPLINE_LABEL } from '@/lib/types';
+
+const { settings, series } = await getSite();
+const SIZES = '(min-width: 60em) 12vw, 30vw';
+---
+
+<Shell {settings} title="Work" description={`Series by ${settings.photographerName}: ${series.map((s) => s.title).join(', ')}.`} image={ogImageUrl(series[0]?.cover)}>
+  <section class="contents" aria-labelledby="contents-title">
+    <h1 id="contents-title" class="v1-display v1-display--l" style="margin-bottom: var(--space-7)">Contents</h1>
+    <ol>
+      {
+        series.map((s, i) => (
+          <li class="contents__row">
+            <span class="contents__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <div>
+              <a class="contents__title v1-display v1-display--m" href={href('v1', `/work/${s.slug}`)}>{s.title}</a>
+              <dl class="v1-meta contents__meta">
+                <dt>Year</dt>
+                <dd>{s.year}</dd>
+                <dt>Discipline</dt>
+                <dd>{DISCIPLINE_LABEL[s.discipline]}</dd>
+                {s.location && (
+                  <>
+                    <dt>Location</dt>
+                    <dd>{s.location}</dd>
+                  </>
+                )}
+                <dt>Pictures</dt>
+                <dd>{s.images.length} pictures</dd>
+              </dl>
+            </div>
+            <a href={href('v1', `/work/${s.slug}`)} tabindex="-1" aria-hidden="true">
+              <Pic photo={s.cover} sizes={SIZES} quality={QUALITY.grid} priority={i === 0} />
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+</Shell>

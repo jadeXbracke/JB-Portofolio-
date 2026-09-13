@@ -1,0 +1,58 @@
+/* v4 — CINEMA. True black (#000000, deliberate for OLED edge-to-edge — do not substitute a
+   tinted near-black), off-white type, desaturated blue-grey for metadata. Jost 300 display,
+   Switzer body. Paid upgrade path: --font-display → 'ABC Marfa', --font-body → 'Söhne'. */
+@layer reset, tokens, base, layout, components, states;
+
+@layer tokens {
+  :root[data-version='v4'] {
+    --black: #000000;
+    --type: #ededeb;
+    --meta: #6e7679; /* hover states, hairlines */
+    --meta-text: #8e979a; /* same blue-grey lifted for small text on black (6:1) */
+    --focus: var(--type);
+
+    --font-display: 'Jost', 'Futura', 'Avenir Next', sans-serif;
+    --font-body: 'Switzer', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --weight-display: 300;
+    --weight-body: 400;
+
+    /* Modular scale, ratio 1.25, base 15px (dark UI reads larger) */
+    --ratio: 1.25;
+    --step-0: 0.9375rem;
+    --step--2: calc(var(--step-0) / var(--ratio) / var(--ratio));
+    --step--1: calc(var(--step-0) / var(--ratio));
+    --step-1: calc(var(--step-0) * var(--ratio));
+    --step-2: calc(var(--step-1) * var(--ratio));
+    --step-3: calc(var(--step-2) * var(--ratio));
+    --step-4: calc(var(--step-3) * var(--ratio));
+    --step-5: calc(var(--step-4) * var(--ratio));
+    --step-6: calc(var(--step-5) * var(--ratio));
+    --step-7: calc(var(--step-6) * var(--ratio));
+    --step-8: calc(var(--step-7) * var(--ratio));
+
+    --track-title: 0.32em;
+    --track-title-start: 0.6em; /* the title sequence resolves from here */
+    --track-corner: 0.28em;
+    --track-small: 0.2em;
+    --leading-body: 1.6;
+    --measure: 52ch;
+
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 1rem;
+    --space-4: 1.5rem;
+    --space-5: 2.5rem;
+    --space-6: 4rem;
+    --gutter: clamp(1rem, 3vw, 2.5rem);
+
+    /* Frame fractions for non-full images: the photograph sits on black */
+    --vw-wide: 86vw;
+    --vw-half: 60vw;
+    --vw-column: 42vw;
+    --h-frame: 88svh;
+
+    --dur-title: 1600ms;
+    --dur: 320ms;
+    --ease: cubic-bezier(0.2, 0, 0.1, 1);
+  }
+}

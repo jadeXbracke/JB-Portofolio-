@@ -1,0 +1,24 @@
+---
+import Shell from '@/versions/v4/Shell.astro';
+import Pic from '@/components/Pic.astro';
+import { getSite } from '@/lib/cms';
+import { heightSizes, ogImageUrl, preloadAttrs } from '@/lib/image';
+import { personLd } from '@/lib/jsonld';
+import { toHtml, toText, words } from '@/lib/portable';
+const { settings } = await getSite();
+const p = settings.portrait;
+---
+
+<Shell {settings} title="About" description={words(toText(settings.aboutBody), 30)} image={ogImageUrl(p ?? settings.seoDefaults.ogImage)} preload={p ? preloadAttrs(p, heightSizes(p, 50, 60)) : undefined} jsonLd={[personLd(settings, Astro.site, Astro.url.toString())]}>
+  <section class="v4-page">
+    <h1 class="v4-display">{settings.photographerName}</h1>
+    {p && <Pic photo={p} sizes={heightSizes(p, 50, 60)} class="cine__pic" style="--vw:60vw;--h-frame:50svh" priority />}
+    <div class="v4-prose" set:html={toHtml(settings.aboutBody)} />
+    {settings.cvItems.length > 0 && (
+      <ol class="v4-list" aria-label="Selected">
+        {settings.cvItems.map((c) => (<li><span>{c.year}</span><span>{c.text}</span></li>))}
+      </ol>
+    )}
+    {settings.clientList.length > 0 && <p class="v4-prose v4-meta">{settings.clientList.join(', ')}</p>}
+  </section>
+</Shell>

@@ -1,0 +1,79 @@
+---
+import Shell from '@/versions/v3/Shell.astro';
+import Pic from '@/components/Pic.astro';
+import { getSite } from '@/lib/cms';
+import { ogImageUrl, preloadAttrs } from '@/lib/image';
+import { href } from '@/lib/site';
+import { DISCIPLINE_LABEL } from '@/lib/types';
+
+const { settings, series } = await getSite();
+const SIZES = '(min-width: 60em) 70vw, 100vw';
+---
+
+<Shell {settings} title="Work" description={`Series by ${settings.photographerName}: ${series.map((s) => s.title).join(', ')}.`} image={ogImageUrl(series[0]?.cover)} preload={series[0] ? preloadAttrs(series[0].cover, SIZES) : undefined}>
+  <Fragment slot="panel">
+    <h1 class="v3-display" style="font-size: var(--step-2)">Work</h1>
+    <p class="v3-small"><span class="strip__counter" data-counter>01</span> / {String(series.length).padStart(2, '0')}</p>
+    <ol class="strip__list" data-list>
+      {
+        series.map((s, i) => (
+          <li>
+            <a href={href('v3', `/work/${s.slug}`)} class={i === 0 ? 'is-current' : ''} data-go={i}>
+              <span>{String(i + 1).padStart(2, '0')}</span>
+              <span>{s.title}</span>
+              <span>{s.year} {DISCIPLINE_LABEL[s.discipline]}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </Fragment>
+  <div class="strip" data-strip tabindex="0" aria-label="Covers, scroll sideways">
+    {
+      series.map((s, i) => (
+        <div class="strip__frame" data-frame={i}>
+          <a href={href('v3', `/work/${s.slug}`)} aria-label={`Open ${s.title}`}>
+            <Pic photo={s.cover} sizes={SIZES} fill priority={i === 0} />
+          </a>
+        </div>
+      ))
+    }
+  </div>
+  <script>
+    // The filmstrip: the panel's list follows the frame in view; clicking a name on a
+    // pointer device scrolls the strip to that frame first (the only animated property).
+    const strip = document.querySelector<HTMLElement>('[data-strip]');
+    const links = [...document.querySelectorAll<HTMLAnchorElement>('[data-go]')];
+    const counter = document.querySelector<HTMLElement>('[data-counter]');
+    if (strip) {
+      const frames = [...strip.querySelectorAll<HTMLElement>('[data-frame]')];
+      const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const setCurrent = (i: number) => {
+        links.forEach((a, k) => a.classList.toggle('is-current', k === i));
+        if (counter) counter.textContent = String(i + 1).padStart(2, '0');
+      };
+      const io = new IntersectionObserver(
+        (entries) => entries.forEach((e) => e.isIntersecting && setCurrent(Number((e.target as HTMLElement).dataset.frame))),
+        { root: strip, threshold: 0.6 },
+      );
+      frames.forEach((f) => io.observe(f));
+      links.forEach((a, i) => {
+        a.addEventListener('click', (e) => {
+          if (a.classList.contains('is-current') || matchMedia('(max-width: 60em)').matches) return; // go through
+          e.preventDefault();
+          frames[i]?.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', inline: 'start', block: 'nearest' });
+          setCurrent(i);
+        });
+      });
+      strip.addEventListener('keydown', (e) => {
+        const cur = links.findIndex((a) => a.classList.contains('is-current'));
+        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+          const n = Math.max(0, Math.min(frames.length - 1, cur + (e.key === 'ArrowRight' ? 1 : -1)));
+          frames[n]?.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', inline: 'start', block: 'nearest' });
+          setCurrent(n);
+          e.preventDefault();
+        }
+      });
+    }
+  </script>
+</Shell>

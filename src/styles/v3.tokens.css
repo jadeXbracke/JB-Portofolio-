@@ -1,0 +1,56 @@
+/* v3 — SPLIT. White and ink; the photograph supplies all colour. One accent: dark wine,
+   active states only. Zodiak display, General Sans body.
+   Paid upgrade path: --font-display → 'GT Alpina' (Condensed Light), --font-body → 'Söhne'. */
+@layer reset, tokens, base, layout, components, states;
+
+@layer tokens {
+  :root[data-version='v3'] {
+    --white: #ffffff;
+    --ink: #0a0a0a;
+    --wine: #5b1220;
+    --rule: #e6e6e6;
+    --focus: var(--wine);
+
+    --font-display: 'Zodiak', 'Bodoni 72', Didot, Georgia, serif;
+    --font-body: 'General Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --weight-display: 300;
+    --weight-body: 400;
+
+    /* Modular scale, ratio 1.333, base 16px */
+    --ratio: 1.333;
+    --step-0: 1rem;
+    --step--2: calc(var(--step-0) / var(--ratio) / var(--ratio));
+    --step--1: calc(var(--step-0) / var(--ratio));
+    --step-1: calc(var(--step-0) * var(--ratio));
+    --step-2: calc(var(--step-1) * var(--ratio));
+    --step-3: calc(var(--step-2) * var(--ratio));
+    --step-4: calc(var(--step-3) * var(--ratio));
+    --step-5: calc(var(--step-4) * var(--ratio));
+    --step-6: calc(var(--step-5) * var(--ratio));
+    --step-7: calc(var(--step-6) * var(--ratio));
+    --step-8: calc(var(--step-7) * var(--ratio));
+
+    --track-wordmark: 0.36em;
+    --track-display: 0.28em;
+    --track-small: 0.16em;
+    --leading-body: 1.6;
+    --measure: 46ch;
+
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 1rem;
+    --space-4: 1.5rem;
+    --space-5: 2.5rem;
+    --space-6: 4rem;
+    --space-7: 6.5rem;
+    --gutter: clamp(1.25rem, 3.5vw, 3.5rem);
+
+    /* The split. The ratio is the one thing that moves. */
+    --split-l: 40fr;
+    --split-r: 60fr;
+    --split-l-hover: 30fr;
+    --split-r-hover: 70fr;
+    --dur: 600ms;
+    --ease: cubic-bezier(0.3, 0, 0.1, 1);
+  }
+}

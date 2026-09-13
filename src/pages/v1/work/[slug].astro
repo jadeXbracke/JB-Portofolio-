@@ -1,0 +1,98 @@
+---
+import Shell from '@/versions/v1/Shell.astro';
+import Pic from '@/components/Pic.astro';
+import { getSite, neighbours } from '@/lib/cms';
+import { ogImageUrl, preloadAttrs, QUALITY } from '@/lib/image';
+import { seriesLd } from '@/lib/jsonld';
+import { rows } from '@/lib/layout';
+import { toHtml, toText, words } from '@/lib/portable';
+import { href } from '@/lib/site';
+import { DISCIPLINE_LABEL, type DisplayWidth } from '@/lib/types';
+
+export async function getStaticPaths() {
+  const { series } = await getSite();
+  return series.map((s) => ({ params: { slug: s.slug }, props: { slug: s.slug } }));
+}
+const { settings, series } = await getSite();
+const item = series.find((s) => s.slug === Astro.props.slug)!;
+const { next, index } = neighbours(series, item);
+const COVER_SIZES = '(min-width: 60em) 50vw, 100vw';
+const SIZES: Record<DisplayWidth, string> = {
+  full: '100vw',
+  wide: '(min-width: 60em) 82vw, 100vw',
+  half: '(min-width: 60em) 50vw, 70vw',
+  column: '(min-width: 60em) 38rem, 100vw',
+};
+const PAIR_SIZES = '(min-width: 40em) 46vw, 100vw';
+const description = words(toText(item.intro), 30) || `${item.title}, ${item.year}. ${DISCIPLINE_LABEL[item.discipline]} by ${settings.photographerName}.`;
+---
+
+<Shell
+  {settings}
+  title={item.title}
+  {description}
+  type="article"
+  image={ogImageUrl(item.cover)}
+  preload={preloadAttrs(item.cover, COVER_SIZES)}
+  jsonLd={[seriesLd(item, settings, Astro.site, Astro.url.toString())]}
+  half
+>
+  <article>
+    <header class="spread spread--opener">
+      <div class="spread__page">
+        <div class="spread__title">
+          <h1 class="v1-display v1-display--xl">{item.title}</h1>
+          <div class="spread__standfirst v1-prose" set:html={toHtml(item.intro)} />
+        </div>
+        <dl class="v1-meta">
+          <dt>Year</dt>
+          <dd>{item.year}</dd>
+          <dt>Discipline</dt>
+          <dd>{DISCIPLINE_LABEL[item.discipline]}</dd>
+          {item.location && (<><dt>Location</dt><dd>{item.location}</dd></>)}
+          {item.client && (<><dt>Client</dt><dd>For {item.client}</dd></>)}
+        </dl>
+      </div>
+      <div class="spread__image"><Pic photo={item.cover} sizes={COVER_SIZES} priority fill /></div>
+    </header>
+
+    <div class="feature">
+      {
+        rows(item.images).map((row) =>
+          row.kind === 'pair' ? (
+            <div class="feat feat--pair">
+              {row.photos.map((p) => (
+                <figure>
+                  <Pic photo={p} sizes={PAIR_SIZES} quality={QUALITY.single} />
+                  {p.caption && <figcaption>{p.caption}</figcaption>}
+                </figure>
+              ))}
+            </div>
+          ) : (
+            <figure class:list={['feat', `feat--${row.photo.displayWidth}`]}>
+              <Pic photo={row.photo} sizes={SIZES[row.photo.displayWidth]} quality={QUALITY.single} />
+              {row.photo.caption && <figcaption>{row.photo.caption}</figcaption>}
+            </figure>
+          ),
+        )
+      }
+    </div>
+
+    <footer>
+      {
+        next && (
+          <div class="feature__next">
+            <a href={href('v1', `/work/${next.slug}`)}>
+              <span class="v1-small">Next feature</span>
+              <span class="v1-display v1-display--l">{next.title}</span>
+            </a>
+          </div>
+        )
+      }
+      <p class="folio">
+        <span>{index + 1} of {series.length}</span>
+        <a href={href('v1', '/work')}>Contents</a>
+      </p>
+    </footer>
+  </article>
+</Shell>

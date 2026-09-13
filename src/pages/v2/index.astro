@@ -1,0 +1,86 @@
+---
+import Shell from '@/versions/v2/Shell.astro';
+import Pic from '@/components/Pic.astro';
+import { getSite, heroPhoto } from '@/lib/cms';
+import { heightSizes, ogImageUrl, preloadAttrs } from '@/lib/image';
+import { personLd } from '@/lib/jsonld';
+import { href } from '@/lib/site';
+
+const { settings, homepage } = await getSite();
+const hero = heroPhoto(homepage)!;
+// Slides: the hero first, then the selected work covers (deduplicated)
+const slides = [
+  { photo: hero, title: homepage.heroSeries!.title, year: homepage.heroSeries!.year, slug: homepage.heroSeries!.slug },
+  ...homepage.selectedWork
+    .filter((s) => s.slug !== homepage.heroSeries!.slug)
+    .map((s) => ({ photo: s.cover, title: s.title, year: s.year, slug: s.slug })),
+];
+---
+
+<Shell
+  {settings}
+  title={settings.seoDefaults.title}
+  description={settings.seoDefaults.description}
+  image={ogImageUrl(settings.seoDefaults.ogImage ?? hero)}
+  preload={preloadAttrs(hero, heightSizes(hero, 60))}
+  jsonLd={[personLd(settings, Astro.site, Astro.url.toString())]}
+>
+  <section class="stage" data-stage aria-roledescription="carousel" aria-label="Selected work">
+    <div class="stage__slides">
+      {
+        slides.map((s, i) => (
+          <div class:list={['slide', i === 0 && 'is-active']} data-slide role="group" aria-roledescription="slide" aria-label={`${i + 1} of ${slides.length}`} aria-hidden={i !== 0 ? 'true' : undefined}>
+            <a href={href('v2', `/work/${s.slug}`)} aria-label={`${s.title}, ${s.year}`}>
+              <Pic photo={s.photo} sizes={heightSizes(s.photo, 60)} priority={i === 0} class="frame__pic" />
+            </a>
+          </div>
+        ))
+      }
+    </div>
+    <div class="stage__label" aria-live="polite">
+      {
+        slides.map((s, i) => (
+          <a href={href('v2', `/work/${s.slug}`)} class="v2-caps" data-label hidden={i !== 0}>
+            {s.title} <span class="v2-muted">{s.year}</span>
+          </a>
+        ))
+      }
+      <p class="stage__controls">
+        <button type="button" data-prev>Previous</button>
+        <span><span data-count>1</span> / {slides.length}</span>
+        <button type="button" data-next>Next</button>
+      </p>
+    </div>
+  </section>
+  <script>
+    // Slow cross-fade between the selected covers. Opacity only. Paused when the user
+    // prefers reduced motion (then the buttons are the only way to move).
+    const stage = document.querySelector<HTMLElement>('[data-stage]');
+    if (stage) {
+      const slides = [...stage.querySelectorAll<HTMLElement>('[data-slide]')];
+      const labels = [...stage.querySelectorAll<HTMLElement>('[data-label]')];
+      const count = stage.querySelector<HTMLElement>('[data-count]');
+      const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let i = 0;
+      let timer: number | undefined;
+      const show = (n: number) => {
+        i = (n + slides.length) % slides.length;
+        slides.forEach((s, k) => {
+          s.classList.toggle('is-active', k === i);
+          s.toggleAttribute('aria-hidden', k !== i);
+        });
+        labels.forEach((l, k) => (l.hidden = k !== i));
+        if (count) count.textContent = String(i + 1);
+      };
+      const arm = () => {
+        if (reduced || slides.length < 2 || document.hidden) return;
+        clearInterval(timer);
+        timer = window.setInterval(() => show(i + 1), 8000);
+      };
+      stage.querySelector('[data-next]')?.addEventListener('click', () => (show(i + 1), arm()));
+      stage.querySelector('[data-prev]')?.addEventListener('click', () => (show(i - 1), arm()));
+      document.addEventListener('visibilitychange', () => (document.hidden ? clearInterval(timer) : arm()));
+      arm();
+    }
+  </script>
+</Shell>

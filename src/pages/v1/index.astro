@@ -1,0 +1,71 @@
+---
+import Shell from '@/versions/v1/Shell.astro';
+import Pic from '@/components/Pic.astro';
+import { getSite, heroPhoto } from '@/lib/cms';
+import { ogImageUrl, preloadAttrs, QUALITY } from '@/lib/image';
+import { personLd } from '@/lib/jsonld';
+import { toText, words } from '@/lib/portable';
+import { href } from '@/lib/site';
+import { DISCIPLINE_LABEL } from '@/lib/types';
+
+const { settings, homepage, series } = await getSite();
+const hero = heroPhoto(homepage)!;
+const heroSeries = homepage.heroSeries!;
+const standfirst = words(`${settings.tagline} ${toText(heroSeries.intro)}`, 40);
+const SIZES = '(min-width: 60em) 50vw, 100vw';
+const spreads = homepage.selectedWork.filter((s) => s.slug !== heroSeries.slug);
+---
+
+<Shell
+  {settings}
+  title={settings.seoDefaults.title}
+  description={settings.seoDefaults.description}
+  image={ogImageUrl(settings.seoDefaults.ogImage ?? hero)}
+  preload={preloadAttrs(hero, SIZES)}
+  jsonLd={[personLd(settings, Astro.site, Astro.url.toString())]}
+  half
+>
+  <section class="spread" aria-labelledby="hero-title">
+    <div class="spread__page">
+      <div class="spread__title">
+        <h1 id="hero-title" class="v1-display v1-display--xl">{heroSeries.title}</h1>
+        <p class="spread__standfirst">{standfirst}</p>
+      </div>
+      <p class="spread__byline v1-small">Photographed by {settings.photographerName}</p>
+    </div>
+    <a class="spread__image" href={href('v1', `/work/${heroSeries.slug}`)} aria-label={`Open ${heroSeries.title}`}>
+      <Pic photo={hero} sizes={SIZES} priority fill />
+    </a>
+  </section>
+
+  {
+    spreads.map((s, i) => (
+      <section class:list={['spread', i % 2 === 0 && 'spread--flip']} aria-labelledby={`s-${s.slug}`}>
+        <div class="spread__page">
+          <div class="spread__title">
+            <h2 id={`s-${s.slug}`} class="v1-display v1-display--l">
+              <a href={href('v1', `/work/${s.slug}`)} style="text-decoration:none">{s.title}</a>
+            </h2>
+            <p class="spread__standfirst">{words(toText(s.intro), 28)}</p>
+          </div>
+          <dl class="v1-meta">
+            <dt>Year</dt>
+            <dd>{s.year}</dd>
+            <dt>Discipline</dt>
+            <dd>{DISCIPLINE_LABEL[s.discipline]}</dd>
+            {s.location && (
+              <>
+                <dt>Location</dt>
+                <dd>{s.location}</dd>
+              </>
+            )}
+          </dl>
+        </div>
+        <a class="spread__image" href={href('v1', `/work/${s.slug}`)} aria-label={`Open ${s.title}`}>
+          <Pic photo={s.cover} sizes={SIZES} fill quality={QUALITY.single} />
+        </a>
+      </section>
+    ))
+  }
+  <p class="folio"><span>{series.length} series</span><a href={href('v1', '/work')}>Contents</a></p>
+</Shell>

@@ -1,0 +1,70 @@
+---
+import Shell from '@/versions/v3/Shell.astro';
+import Pic from '@/components/Pic.astro';
+import { getSite, neighbours } from '@/lib/cms';
+import { ogImageUrl, preloadAttrs, QUALITY } from '@/lib/image';
+import { seriesLd } from '@/lib/jsonld';
+import { rows } from '@/lib/layout';
+import { toHtml, toText, words } from '@/lib/portable';
+import { href } from '@/lib/site';
+import { DISCIPLINE_LABEL, type DisplayWidth } from '@/lib/types';
+
+export async function getStaticPaths() {
+  const { series } = await getSite();
+  return series.map((s) => ({ params: { slug: s.slug }, props: { slug: s.slug } }));
+}
+const { settings, series } = await getSite();
+const item = series.find((s) => s.slug === Astro.props.slug)!;
+const { next } = neighbours(series, item);
+const SIZES: Record<DisplayWidth, string> = {
+  full: '(min-width: 60em) 70vw, 100vw',
+  wide: '(min-width: 60em) 59vw, 100vw',
+  half: '(min-width: 60em) 35vw, 72vw',
+  column: '(min-width: 60em) 26rem, 60vw',
+};
+const PAIR = '(min-width: 60em) 32vw, (min-width: 40em) 46vw, 100vw';
+const first = item.images[0];
+const description = words(toText(item.intro), 30) || `${item.title}, ${item.year}. ${DISCIPLINE_LABEL[item.discipline]} by ${settings.photographerName}.`;
+---
+
+<Shell {settings} title={item.title} {description} type="article" image={ogImageUrl(item.cover)} preload={first ? preloadAttrs(first, SIZES[first.displayWidth]) : undefined} jsonLd={[seriesLd(item, settings, Astro.site, Astro.url.toString())]}>
+  <Fragment slot="panel">
+    <h1 class="v3-display">{item.title}</h1>
+    <dl class="split__meta">
+      <div><dt>Year</dt><dd>{item.year}</dd></div>
+      <div><dt>Work</dt><dd>{DISCIPLINE_LABEL[item.discipline]}</dd></div>
+      {item.location && <div><dt>Place</dt><dd>{item.location}</dd></div>}
+      {item.client && <div><dt>Client</dt><dd>{item.client}</dd></div>}
+    </dl>
+    <div class="v3-prose" set:html={toHtml(item.intro)} />
+  </Fragment>
+  <div class="stack">
+    {
+      rows(item.images).map((row, i) =>
+        row.kind === 'pair' ? (
+          <div class="stk stk--pair">
+            {row.photos.map((p) => (
+              <figure>
+                <Pic photo={p} sizes={PAIR} quality={QUALITY.single} priority={i === 0} />
+                {p.caption && <figcaption style="padding-inline:0">{p.caption}</figcaption>}
+              </figure>
+            ))}
+          </div>
+        ) : (
+          <figure class:list={['stk', `stk--${row.photo.displayWidth}`]}>
+            <Pic photo={row.photo} sizes={SIZES[row.photo.displayWidth]} quality={QUALITY.single} priority={i === 0} />
+            {row.photo.caption && <figcaption>{row.photo.caption}</figcaption>}
+          </figure>
+        ),
+      )
+    }
+    {
+      next && (
+        <p class="stack__next">
+          <span class="v3-small">Next</span>
+          <a href={href('v3', `/work/${next.slug}`)} class="v3-display">{next.title}</a>
+        </p>
+      )
+    }
+  </div>
+</Shell>

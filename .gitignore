@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+!.env.example
+# generated locally by `npm run seed:images` (deterministic); regenerated on build if missing
+public/seed/
+seed/images.json
+
+
+# local QA output
+qa/

@@ -1,0 +1,35 @@
+---
+import Shell from '@/versions/v4/Shell.astro';
+import Frame from '@/versions/v4/Frame.astro';
+import { getSite } from '@/lib/cms';
+import { ogImageUrl, preloadAttrs } from '@/lib/image';
+import { personLd } from '@/lib/jsonld';
+import { href } from '@/lib/site';
+
+const { settings, homepage } = await getSite();
+// The reel: one cover per selected series (the hero series first), then an end card.
+const reel = homepage.selectedWork.map((s) => ({ photo: homepage.heroMode === 'image' && s.slug === homepage.heroSeries?.slug ? homepage.heroImage! : s.cover, series: s }));
+const first = reel[0]?.photo;
+---
+
+<Shell {settings} title={settings.seoDefaults.title} description={settings.seoDefaults.description} image={ogImageUrl(settings.seoDefaults.ogImage ?? first)} preload={first ? preloadAttrs(first, '100vw') : undefined} jsonLd={[personLd(settings, Astro.site, Astro.url.toString())]} corner={settings.tagline} frames={reel.length}>
+  <div class="reel">
+    <section class="cine cine--text title-seq" aria-label="Title">
+      <h1 class="v4-display">{settings.photographerName}</h1>
+      <p>{settings.tagline}</p>
+    </section>
+    {reel.map((r, i) => <Frame photo={r.photo} index={i} series={r.series} priority={i === 0} title={`${r.series.title}, ${r.series.year}`} />)}
+    <section class="cine cine--text" aria-label="End">
+      <p class="v4-small v4-meta">Selected work</p>
+      <a class="v4-display" href={href('v4', '/work')}>Programme</a>
+    </section>
+  </div>
+  <script>
+    // The title sequence runs once per session. Reduced motion: never.
+    const KEY = 'v4-title-seen';
+    try {
+      if (sessionStorage.getItem(KEY) || matchMedia('(prefers-reduced-motion: reduce)').matches) document.body.classList.add('no-seq');
+      sessionStorage.setItem(KEY, '1');
+    } catch {}
+  </script>
+</Shell>

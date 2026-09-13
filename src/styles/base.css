@@ -1,0 +1,139 @@
+/* Shared floor for all five versions. Versions add tokens + layout on top; nothing here
+   decides how a version looks — only how it behaves (reset, focus, motion, images). */
+@layer reset, tokens, base, layout, components, states;
+
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+  }
+  html {
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+  }
+  body {
+    min-height: 100svh;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  img,
+  picture,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+  h1,
+  h2,
+  h3,
+  p,
+  figure,
+  ul,
+  ol,
+  dl,
+  dd {
+    margin: 0;
+  }
+  h1,
+  h2,
+  h3 {
+    font-size: inherit;
+    font-weight: inherit; /* the version decides weight and size, never the UA sheet */
+  }
+  ul,
+  ol {
+    padding: 0;
+    list-style: none;
+  }
+  button {
+    font: inherit;
+    color: inherit;
+    letter-spacing: inherit;
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+  }
+  a {
+    color: inherit;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+  }
+  address {
+    font-style: normal;
+  }
+}
+
+@layer base {
+  /* Accessibility floor */
+  :focus-visible {
+    outline: 2px solid var(--focus, currentColor);
+    outline-offset: 3px;
+  }
+  .skip {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0.75rem 1rem;
+    background: var(--ink, #000);
+    color: var(--paper, #fff);
+    font: 500 0.875rem/1 system-ui, sans-serif;
+    transform: translateY(-120%);
+    z-index: 100;
+  }
+  .skip:focus {
+    transform: none;
+  }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* The image component. Wrapper reserves the box (CLS 0), LQIP behind, fade once. */
+  .pic {
+    position: relative;
+    aspect-ratio: var(--ar);
+    background: var(--lqip) center / cover no-repeat;
+    overflow: hidden;
+  }
+  .pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* only meaningful when the box matches the ratio, which it does */
+    transition: opacity 480ms ease;
+  }
+  .js .pic:not(.is-loaded) img {
+    opacity: 0;
+  }
+  .pic--fill {
+    position: absolute;
+    inset: 0;
+    aspect-ratio: auto;
+  }
+  .pic--fill img {
+    object-position: var(--pos, 50% 50%);
+  }
+
+  /* Motion floor: every version honours this. Versions' scripts check the same query. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+    .js .pic:not(.is-loaded) img {
+      opacity: 1;
+    }
+  }
+}

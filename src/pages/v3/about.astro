@@ -1,0 +1,33 @@
+---
+import Shell from '@/versions/v3/Shell.astro';
+import Pic from '@/components/Pic.astro';
+import { getSite } from '@/lib/cms';
+import { ogImageUrl, preloadAttrs } from '@/lib/image';
+import { personLd } from '@/lib/jsonld';
+import { toHtml, toText, words } from '@/lib/portable';
+
+const { settings, series } = await getSite();
+const photo = settings.portrait ?? series[0]?.cover;
+const SIZES = '(min-width: 60em) 70vw, 100vw';
+---
+
+<Shell {settings} title="About" description={words(toText(settings.aboutBody), 30)} image={ogImageUrl(photo)} preload={photo ? preloadAttrs(photo, SIZES) : undefined} jsonLd={[personLd(settings, Astro.site, Astro.url.toString())]} text>
+  <Fragment slot="panel">
+    <h1 class="v3-display">{settings.photographerName}</h1>
+    <div class="v3-prose" set:html={toHtml(settings.aboutBody)} />
+    {
+      settings.cvItems.length > 0 && (
+        <ol class="v3-list" aria-label="Selected">
+          {settings.cvItems.map((c) => (
+            <li>
+              <span>{c.year}</span>
+              <span>{c.text}</span>
+            </li>
+          ))}
+        </ol>
+      )
+    }
+    {settings.clientList.length > 0 && <p class="v3-prose v3-small">{settings.clientList.join(', ')}</p>}
+  </Fragment>
+  {photo && <Pic photo={photo} sizes={SIZES} priority fill />}
+</Shell>

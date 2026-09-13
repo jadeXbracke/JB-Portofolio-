@@ -1,0 +1,64 @@
+---
+import Base from '@/layouts/Base.astro';
+import { ClientRouter } from 'astro:transitions';
+import '@/styles/v1.tokens.css';
+import '@/styles/v1.css';
+import { NAV, href, isCurrent } from '@/lib/site';
+import type { PreloadAttrs } from '@/lib/image';
+import type { SiteSettings } from '@/lib/types';
+
+interface Props {
+  settings: SiteSettings;
+  title: string;
+  description: string;
+  image?: string;
+  type?: 'website' | 'article';
+  jsonLd?: Record<string, unknown>[];
+  preload?: PreloadAttrs;
+  noindex?: boolean;
+  /** Header confined to the left page (pages that open with a spread). */
+  half?: boolean;
+}
+const { settings, title, description, image, type, jsonLd, preload, noindex, half = false } = Astro.props;
+const path = Astro.url.pathname;
+---
+
+<Base
+  version="v1"
+  {title}
+  {description}
+  siteName={settings.photographerName}
+  {image}
+  {type}
+  {jsonLd}
+  {preload}
+  {noindex}
+  fonts={['boska-200.woff2', 'switzer-300.woff2']}
+>
+  <Fragment slot="head"><ClientRouter /></Fragment>
+  <header class:list={['v1-head', half && 'v1-head--half']}>
+    <a href={href('v1')} aria-current={isCurrent(path, 'v1', '') ? 'page' : undefined}>{settings.photographerName}</a>
+    <nav class="v1-nav" aria-label="Main">
+      {NAV.map((n) => (
+        <a href={href('v1', n.path)} aria-current={isCurrent(path, 'v1', n.path) ? 'page' : undefined}>
+          {n.label}
+        </a>
+      ))}
+    </nav>
+  </header>
+  <main id="main">
+    <slot />
+  </main>
+  <footer class="v1-foot">
+    <p>{settings.photographerName}, {settings.location}</p>
+    <p>
+      <a href={`mailto:${settings.email}`}>{settings.email}</a>
+      {settings.instagram && (
+        <>
+          {' '}
+          <a href={`https://www.instagram.com/${settings.instagram}/`} rel="me">Instagram</a>
+        </>
+      )}
+    </p>
+  </footer>
+</Base>

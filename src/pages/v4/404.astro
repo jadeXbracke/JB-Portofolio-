@@ -1,0 +1,13 @@
+---
+import Shell from '@/versions/v4/Shell.astro';
+import { getSite } from '@/lib/cms';
+import { href } from '@/lib/site';
+const { settings } = await getSite();
+---
+
+<Shell {settings} title="Not found" description="That page does not exist." noindex>
+  <section class="v4-page">
+    <h1 class="v4-display">Not found</h1>
+    <p class="v4-meta">That page does not exist. <a href={href('v4', '/work')}>Programme</a></p>
+  </section>
+</Shell>

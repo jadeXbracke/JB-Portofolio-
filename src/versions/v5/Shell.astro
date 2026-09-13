@@ -1,0 +1,42 @@
+---
+import Base from '@/layouts/Base.astro';
+import '@/styles/v5.tokens.css';
+import '@/styles/v5.css';
+import { NAV, href, isCurrent } from '@/lib/site';
+import type { PreloadAttrs } from '@/lib/image';
+import type { SiteSettings } from '@/lib/types';
+
+interface Props {
+  settings: SiteSettings;
+  title: string;
+  description: string;
+  image?: string;
+  type?: 'website' | 'article';
+  jsonLd?: Record<string, unknown>[];
+  preload?: PreloadAttrs;
+  noindex?: boolean;
+}
+const { settings, title, description, image, type, jsonLd, preload, noindex } = Astro.props;
+const path = Astro.url.pathname;
+---
+
+<Base version="v5" {title} {description} siteName={settings.photographerName} {image} {type} {jsonLd} {preload} {noindex} fonts={['switzer-400.woff2']}>
+  <header class="v5-head">
+    <a class="v5-name" href={href('v5')}>{settings.photographerName}</a>
+    <nav class="v5-nav" aria-label="Main">
+      {NAV.map((n) => (
+        <a href={href('v5', n.path)} aria-current={isCurrent(path, 'v5', n.path) ? 'page' : undefined}>{n.label}</a>
+      ))}
+    </nav>
+  </header>
+  <main id="main">
+    <slot />
+  </main>
+  <footer class="v5-foot">
+    <span>{settings.photographerName}, {settings.location}</span>
+    <span>
+      <a href={`mailto:${settings.email}`}>{settings.email}</a>
+      {settings.instagram && (<> <a href={`https://www.instagram.com/${settings.instagram}/`} rel="me">Instagram</a></>)}
+    </span>
+  </footer>
+</Base>

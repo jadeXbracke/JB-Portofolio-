@@ -1,0 +1,61 @@
+---
+import Base from '@/layouts/Base.astro';
+import '@/styles/v3.tokens.css';
+import '@/styles/v3.css';
+import { NAV, href, isCurrent } from '@/lib/site';
+import type { PreloadAttrs } from '@/lib/image';
+import type { SiteSettings } from '@/lib/types';
+
+/**
+ * v3 shell: the split itself. The default slot is the image side; `panel` is the type
+ * panel's middle; the shell adds wordmark, nav and the mobile bar.
+ */
+interface Props {
+  settings: SiteSettings;
+  title: string;
+  description: string;
+  image?: string;
+  type?: 'website' | 'article';
+  jsonLd?: Record<string, unknown>[];
+  preload?: PreloadAttrs;
+  noindex?: boolean;
+  /** Text-heavy page: the panel scrolls and the image sticks. */
+  text?: boolean;
+  /** Label for the mobile bar (defaults to the page title). */
+  barTitle?: string;
+}
+const { settings, title, description, image, type, jsonLd, preload, noindex, text = false, barTitle } = Astro.props;
+const path = Astro.url.pathname;
+---
+
+<Base version="v3" {title} {description} siteName={settings.photographerName} {image} {type} {jsonLd} {preload} {noindex} fonts={['zodiak-300.woff2', 'general-sans-400.woff2']}>
+  <div class:list={['split', text && 'split--text']} data-split>
+    <div class="split__bar" data-bar>
+      <a class="v3-wordmark" href={href('v3')}>{settings.photographerName}</a>
+      <span class="split__bar-title">{barTitle ?? title}</span>
+    </div>
+    <div class="split__panel">
+      <a class="v3-wordmark" href={href('v3')}>{settings.photographerName}</a>
+      <main id="main" class="split__body">
+        <slot name="panel" />
+      </main>
+      <nav class="split__nav" aria-label="Main">
+        {NAV.map((n) => (
+          <a href={href('v3', n.path)} aria-current={isCurrent(path, 'v3', n.path) ? 'page' : undefined}>{n.label}</a>
+        ))}
+      </nav>
+    </div>
+    <div class="split__image">
+      <slot />
+    </div>
+  </div>
+  <script>
+    // Mobile: compact the sticky bar once the panel has scrolled past. No layout shift —
+    // the bar only changes its own padding.
+    const bar = document.querySelector<HTMLElement>('[data-bar]');
+    const panel = document.querySelector<HTMLElement>('.split__panel');
+    if (bar && panel && 'IntersectionObserver' in window) {
+      new IntersectionObserver(([e]) => bar.classList.toggle('is-compact', !e.isIntersecting), { threshold: 0 }).observe(panel);
+    }
+  </script>
+</Base>
