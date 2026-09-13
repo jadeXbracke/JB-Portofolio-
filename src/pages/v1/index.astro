@@ -28,10 +28,12 @@ const spreads = homepage.selectedWork.filter((s) => s.slug !== heroSeries.slug);
   <section class="spread" aria-labelledby="hero-title">
     <div class="spread__page">
       <div class="spread__title">
-        <h1 id="hero-title" class="v1-display v1-display--xl">{heroSeries.title}</h1>
+        <h1 id="hero-title" class="v1-display v1-display--xl">{settings.photographerName}</h1>
         <p class="spread__standfirst">{standfirst}</p>
       </div>
-      <p class="spread__byline v1-small">Photographed by {settings.photographerName}</p>
+      <p class="spread__byline v1-small">
+        <a href={href('v1', `/work/${heroSeries.slug}`)} style="text-decoration:none">{heroSeries.title}, {heroSeries.year}</a>
+      </p>
     </div>
     <a class="spread__image" href={href('v1', `/work/${heroSeries.slug}`)} aria-label={`Open ${heroSeries.title}`}>
       <Pic photo={hero} sizes={SIZES} priority fill />

@@ -247,3 +247,10 @@ and 6 of the brief before the next one started. Changes made as a result:
 - **Fonts:** Fontshare is unreachable from the build environment, so the Fontshare faces
   are fetched by `npm run fonts` on the client's machine; fallbacks are declared in the
   tokens. The critique screenshots used stand-ins installed only in that environment.
+
+## 6. Client decisions
+
+- **The home title is the photographer's full name in every version** (client request,
+  replacing the v1 "series as cover story" title and the v3 tagline headline). The hero
+  series remains the picture and is named in the byline line beneath the title. Series
+  pages keep their series titles: those are content.

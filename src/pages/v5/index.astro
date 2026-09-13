@@ -22,7 +22,8 @@ const first = items[0]?.photo;
 <Shell {settings} title={settings.seoDefaults.title} description={settings.seoDefaults.description} image={ogImageUrl(settings.seoDefaults.ogImage ?? first)} preload={first ? preloadAttrs(first, '(min-width: 60em) 12vw, 33vw', QUALITY.grid) : undefined} jsonLd={[personLd(settings, Astro.site, Astro.url.toString())]}>
   <section class="archive">
     <aside class="meta v5-mono" data-filters aria-label="Filter the archive">
-      <h1>{settings.photographerName}<br /><span class="v5-dim">Archive</span></h1>
+      <h1>{settings.photographerName}</h1>
+      <p class="v5-dim">Archive</p>
       <p><span data-shown>{items.length}</span> / {items.length} frames</p>
       <button type="button" class="meta__toggle" aria-expanded="false" data-toggle>Filters</button>
       <div class="meta__group" role="group" aria-labelledby="f-year">

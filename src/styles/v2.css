@@ -147,7 +147,7 @@
     display: grid;
     place-items: center;
     align-content: center;
-    gap: var(--space-5);
+    gap: var(--space-4);
     min-height: 100svh;
     padding: var(--space-7) var(--gutter) var(--space-6);
   }
@@ -175,6 +175,12 @@
   }
   .slide .frame__pic {
     --h: var(--h-home);
+  }
+  .stage__name {
+    font-size: var(--step-2);
+    font-weight: var(--weight);
+    text-align: center;
+    margin-right: calc(-1 * var(--track-headline));
   }
   .stage__label {
     display: grid;

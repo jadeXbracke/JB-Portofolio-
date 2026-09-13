@@ -63,7 +63,6 @@
   .v1-display--xl {
     font-size: var(--display-xl);
     margin-right: calc(-1 * var(--track-display));
-    overflow-wrap: anywhere; /* safety net for very long titles at 320px */
   }
   .v1-display--l {
     font-size: var(--display-l);

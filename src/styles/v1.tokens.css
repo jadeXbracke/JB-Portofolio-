@@ -30,7 +30,7 @@
     --step-8: calc(var(--step-7) * var(--ratio));
 
     /* The display sizes are fluid between scale steps, never magic numbers in components */
-    --display-xl: clamp(var(--step-3), 10vw, var(--step-8));
+    --display-xl: clamp(var(--step-3), 7vw, var(--step-8));
     --display-l: clamp(var(--step-2), 5vw, var(--step-6));
     --display-m: clamp(var(--step-1), 3vw, var(--step-4));
 
