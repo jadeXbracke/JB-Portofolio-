@@ -95,6 +95,85 @@
     padding-top: var(--bar-h);
   }
 
+  /* Cinema: the homepage as a screening. One frame per selected series, scroll-snapped,
+     at its native ratio (object-fit only ever matches the box, so nothing crops). */
+  html:has(.cinema) {
+    scroll-snap-type: y mandatory;
+  }
+  .cinema__intro,
+  .cinema__frame {
+    height: calc(100svh - var(--bar-h));
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+  .cinema__intro {
+    display: grid;
+    place-items: center;
+    justify-items: center;
+    text-align: center;
+    gap: var(--space-2);
+  }
+  .cinema__title {
+    font-family: var(--font-display);
+    font-weight: var(--weight-display);
+    font-size: var(--step-3);
+    letter-spacing: var(--track-display);
+    text-transform: uppercase;
+  }
+  .cinema__subtitle {
+    font-size: var(--step--1);
+    font-weight: var(--weight-small);
+    letter-spacing: var(--track-small);
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .cinema__frame {
+    position: relative;
+    display: grid;
+    place-items: center;
+    padding: var(--space-2) var(--gutter) var(--space-6);
+  }
+  .cinema__pic {
+    display: block;
+    height: 100%;
+    max-width: 100%;
+  }
+  .cinema__image {
+    height: 100%;
+    width: auto;
+    max-width: 100%;
+  }
+  .cinema__label {
+    position: absolute;
+    left: var(--gutter);
+    bottom: var(--space-3);
+    font-size: var(--step--1);
+    letter-spacing: var(--track-small);
+    text-transform: uppercase;
+  }
+  .cinema__label:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+  .cinema__count {
+    position: fixed;
+    left: var(--gutter);
+    bottom: var(--space-2);
+    z-index: 15;
+    font-size: var(--step--1);
+    letter-spacing: var(--track-small);
+    text-transform: uppercase;
+    pointer-events: none;
+  }
+  .cinema__count:empty {
+    display: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html:has(.cinema) {
+      scroll-snap-type: none;
+    }
+  }
+
   /* Justified grid: each item grows by its aspect ratio, so rows share a height */
   .grid {
     display: flex;
@@ -455,6 +534,9 @@
     }
     .bar__left span {
       display: none; /* the count does not fit beside the name on a phone */
+    }
+    .cinema__title {
+      font-size: var(--step-2);
     }
     .filters__group + .filters__group {
       margin-left: 0;

@@ -1,0 +1,64 @@
+---
+/**
+ * The homepage: a screening, not a grid. One full-height frame per series in
+ * `homepage.selectedWork` — a list the photographer curates directly in Sanity Studio
+ * (drag to reorder, add or remove series; each series' own cover comes from its own
+ * editing). No new schema: this only reads what Homepage → Selected work already holds.
+ *
+ * Each frame shows the series' cover photo at its native ratio (Pic's non-fill mode never
+ * crops — the wrapper's aspect-ratio always matches the photo). The bottom-left counter
+ * tracks the frame in view via IntersectionObserver; it degrades to nothing without JS.
+ */
+import Pic from '@/components/Pic.astro';
+import { heightSizes, QUALITY } from '@/lib/image';
+import type { Series } from '@/lib/types';
+
+interface Props {
+  items: Series[];
+}
+const { items } = Astro.props;
+---
+
+<div class="cinema" data-cinema>
+  <section class="cinema__intro">
+    <p class="cinema__title">Archive</p>
+    <p class="cinema__subtitle">Selected work</p>
+  </section>
+  {
+    items.map((series, i) => (
+      <section class="cinema__frame" data-cinema-frame>
+        <a class="cinema__pic" href={`/work/${series.slug}`} aria-label={`Open ${series.title}`}>
+          <Pic
+            photo={series.cover}
+            sizes={heightSizes(series.cover, 88, 92)}
+            quality={QUALITY.single}
+            priority={i === 0}
+            class="cinema__image"
+          />
+        </a>
+        <a class="cinema__label" href={`/work/${series.slug}`}>{series.title}</a>
+      </section>
+    ))
+  }
+  <p class="cinema__count" data-cinema-count aria-hidden="true"></p>
+</div>
+
+<script>
+  const frames = Array.from(document.querySelectorAll<HTMLElement>('[data-cinema-frame]'));
+  const counter = document.querySelector<HTMLElement>('[data-cinema-count]');
+  if (counter && frames.length) {
+    const total = String(frames.length).padStart(2, '0');
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            const i = frames.indexOf(entry.target as HTMLElement);
+            counter.textContent = `${String(i + 1).padStart(2, '0')} / ${total}`;
+          }
+        }
+      },
+      { threshold: 0.6 },
+    );
+    frames.forEach((f) => io.observe(f));
+  }
+</script>

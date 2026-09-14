@@ -1,14 +1,13 @@
 ---
 import Shell from '@/site/Shell.astro';
-import Grid from '@/site/Grid.astro';
-import Viewer from '@/site/Viewer.astro';
-import { getArchive, getSite } from '@/lib/cms';
+import Cinema from '@/site/Cinema.astro';
+import { getSite } from '@/lib/cms';
 import { heightSizes, ogImageUrl, preloadAttrs, QUALITY } from '@/lib/image';
 import { personLd } from '@/lib/jsonld';
 
-const { settings, series } = await getSite();
-const items = await getArchive();
-const first = items[0]?.photo;
+const { settings, series, homepage } = await getSite();
+const items = homepage.selectedWork;
+const first = items[0]?.cover;
 ---
 
 <Shell
@@ -17,11 +16,10 @@ const first = items[0]?.photo;
   title={settings.seoDefaults.title}
   description={settings.seoDefaults.description}
   image={ogImageUrl(settings.seoDefaults.ogImage ?? first)}
-  preload={first ? preloadAttrs(first, heightSizes(first, 30, 90), QUALITY.grid) : undefined}
+  preload={first ? preloadAttrs(first, heightSizes(first, 88, 92), QUALITY.single) : undefined}
   jsonLd={[personLd(settings, Astro.site, Astro.url.toString())]}
-  left={[{ label: 'Archive', href: '/', current: true }, { label: 'Work', href: '/work' }, { label: `${items.length} images` }]}
+  left={[{ label: 'Archive', href: '/', current: true }, { label: 'Work', href: '/work' }]}
 >
   <h1 class="sr-only">{settings.photographerName}</h1>
-  <Grid {items} />
-  <Viewer />
+  <Cinema {items} />
 </Shell>
