@@ -310,3 +310,14 @@ Client: the home page is the archive; Work is a separate page with all projects,
 filtered. The bar's left side now reads Archive / Work (current one underlined) plus the
 count. `/work` lists every project as its cover with title, year and discipline, under two
 filter rows (discipline, year) that combine. Filtering is a state change; nothing animates.
+
+## 11. Real photographs, before Sanity exists
+
+Client uploaded two real photographs and asked to see them in the actual layout. Added a
+`seed/real-photos/` source folder (committed, resized to the documented export preset —
+4800px long edge, quality 90) that `seed/generate-images.mjs` now picks up automatically
+alongside the twelve synthetic placeholders, generating the same srcset and LQIP for each.
+Wired both into the "Sitters" series (its cover and first two images) so they appear in
+the archive grid, the Work index, the project page and the full-screen viewer. This is a
+stand-in for the real workflow: once a Sanity project exists, photographs are uploaded
+through the Studio and `seed/real-photos/` stops being read for anything but local preview.

@@ -189,7 +189,7 @@ Scripts:
 | `npm run dev` / `build` / `preview` | Astro. |
 | `npm run check` | `astro check` (TypeScript across `.astro` files). |
 | `npm run fonts` | Fetches and subsets the web fonts (needs `pyftsubset` for subsetting; optional). |
-| `npm run seed:images` | Regenerates the 12 placeholder images into `public/seed/` (runs automatically before `build` and `dev` if missing). |
+| `npm run seed:images` | Regenerates the 12 placeholders plus anything in `seed/real-photos/` into `public/seed/` (runs automatically before `build` and `dev` if missing). |
 | `npm run seed:upload` | Uploads the seed content + placeholders to your Sanity dataset (needs `SANITY_WRITE_TOKEN`). |
 | `npm run screenshots [--full]` | Playwright screenshots at 1440 and 390 into `qa/screens/`. |
 | `npm run lighthouse [path]` | Lighthouse on the 20-image series page, JSON into `qa/lighthouse/`. |
@@ -202,6 +202,14 @@ Scripts:
 Leave `PUBLIC_SANITY_PROJECT_ID` empty and the site builds from `seed/content.json` plus
 12 generated greyscale placeholder images — tonal fields and simple geometry, no people,
 no stock. That is how the site renders in a fresh clone.
+
+**Previewing a real photograph before Sanity is set up.** Drop a JPEG into
+`seed/real-photos/` as `<id>.jpg` (long edge 4800px, quality 90 — the same export preset
+as section 3), then reference `"<id>"` from an image in `seed/content.json` exactly like
+the `pNN` placeholders. `npm run build` picks it up automatically and generates its full
+srcset. This is a stopgap for design review only — once a Sanity project exists, real
+photographs are uploaded through the Studio instead, and anything in `seed/real-photos/`
+is ignored.
 
 ### With a Sanity project
 1. Create a project at sanity.io/manage (free tier), dataset `production`.

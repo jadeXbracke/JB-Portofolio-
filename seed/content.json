@@ -346,26 +346,26 @@
         }
       ],
       "cover": {
-        "image": "p03",
-        "alt": "A charcoal field with a soft lighter disc above centre",
+        "image": "real-01",
+        "alt": "A young man with slicked-back hair sits on rocks by the sea, arms wrapped around his knees, resting his head on his forearm",
         "displayWidth": "full",
         "pairWithNext": false,
         "focal": [
-          0.5,
-          0.4
+          0.46,
+          0.42
         ]
       },
       "images": [
         {
-          "image": "p03",
-          "alt": "A charcoal field with a soft lighter disc above centre",
+          "image": "real-01",
+          "alt": "A young man with slicked-back hair sits on rocks by the sea, arms wrapped around his knees, resting his head on his forearm",
           "displayWidth": "column",
           "pairWithNext": false
         },
         {
-          "image": "p06",
-          "alt": "Cool grey wall with a lit vertical band of light",
-          "displayWidth": "column",
+          "image": "real-02",
+          "alt": "Seen from above, a man sits at the edge of a sea pool beside a ladder and a hand-lettered No entry sign, waves breaking on the rocks behind him",
+          "displayWidth": "full",
           "pairWithNext": false
         },
         {
