@@ -1,6 +1,6 @@
 # Jade Bracke — portfolio
 
-One photography site, black and white. This README is written for
+One photography site, black on white. This README is written for
 Jade first (sections 1–6) and for whoever maintains the code second (sections 7–12).
 
 The site: **Astro 5** (static HTML), **Sanity** (the content editor, at `/studio`),
@@ -10,8 +10,8 @@ The site: **Astro 5** (static HTML), **Sanity** (the content editor, at `/studio
 
 ## 1. The site
 
-One site, black and white. The home page is every image in every series as a grid; a
-picture opens full screen when tapped. The bar at the top has the image count and the
+One site, black type on a white ground, no grey. The home page is every image in every
+series as a grid; a picture opens full screen when tapped. The bar at the top has the image count and the
 Index on the left, your name in the middle and About on the right. About opens over the
 blurred grid with your statement, contact details, the list of series, selected
 exhibitions and clients. Each series has its own page with its title in tall thin
@@ -120,8 +120,8 @@ hotspot.
 There is one token file, `src/styles/tokens.css`. Every colour, typeface, size and
 spacing the site uses is a named value in that file. Components never contain raw values.
 
-- **Colours:** the site is black and white by design (`--black`, `--white`, and greys as
-  white at an opacity). There is no accent colour to change.
+- **Colours:** the site is black on white by design (`--ground`, `--ink`). There is no
+  grey and no accent colour to change.
 - **Typeface:** change `--font-display` (Jost, the thin capitals and the About statement)
   or `--font-text` (Switzer, everything small) in the token file. The comment at the top names the paid upgrade path (PP Editorial New, Söhne, GT
   Alpina, ABC Marfa). Put the licensed `.woff2` files in `public/fonts/` and add matching

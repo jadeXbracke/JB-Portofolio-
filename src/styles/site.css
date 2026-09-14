@@ -1,14 +1,14 @@
-/* Layout. One site. Black ground, white type, a bar, a grid, an overlay. */
+/* Layout. One site. White ground, black type, a bar, a grid, an overlay. */
 @layer reset, tokens, base, layout, components, states;
 
 @layer layout {
   :root {
-    background: var(--black);
-    color-scheme: dark;
+    background: var(--ground);
+    color-scheme: light;
   }
   body {
-    background: var(--black);
-    color: var(--white);
+    background: var(--ground);
+    color: var(--ink);
     font-family: var(--font-text);
     font-weight: var(--weight-text);
     font-size: var(--step-0);
@@ -32,7 +32,7 @@
     text-transform: uppercase;
   }
   .dim {
-    color: var(--white-60);
+    color: var(--ink);
   }
 
   /* The bar: count left, name centre, About right */
@@ -46,15 +46,16 @@
     align-items: center;
     gap: var(--space-3);
     padding-inline: var(--gutter);
-    background: var(--black);
+    background: var(--ground);
   }
   .bar__left {
     display: flex;
     gap: var(--space-4);
-    color: var(--white-60);
+    color: var(--ink);
   }
   .bar__left a:hover {
-    color: var(--white);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
   }
   .bar__name {
     font-family: var(--font-display);
@@ -71,17 +72,18 @@
     gap: var(--space-4);
   }
   .bar__right button {
-    color: var(--white);
+    color: var(--ink);
   }
   .bar__right button:hover,
   .bar__right a:hover {
-    color: var(--white-60);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
   }
   .bar__right [data-close] {
     display: none;
   }
   .is-about .bar__right [data-about] {
-    color: var(--white-40);
+    text-decoration: line-through;
   }
   .is-about .bar__right [data-close] {
     display: inline;
@@ -127,7 +129,7 @@
   }
   .cell:hover .pic,
   .cell:focus-visible .pic {
-    opacity: 0.85;
+    outline: 1px solid var(--ink);
   }
   .grid--series {
     --row: var(--row-series);
@@ -135,7 +137,7 @@
   .is-about .grid,
   .is-about .feature {
     filter: blur(var(--blur));
-    opacity: 0.5;
+    opacity: 0.18; /* the grid ghosts toward white behind the text; the type stays pure black */
     pointer-events: none;
   }
 
@@ -156,16 +158,17 @@
     margin-top: var(--space-2);
   }
   .feature__byline {
-    color: var(--white-60);
+    color: var(--ink);
   }
   .feature__next {
     padding: var(--space-4) var(--gutter) var(--space-7);
     display: flex;
     gap: var(--space-4);
-    color: var(--white-60);
+    color: var(--ink);
   }
   .feature__next a:hover {
-    color: var(--white);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
   }
 
   /* About: an overlay over the blurred grid (and a page of its own at /about) */
@@ -212,7 +215,8 @@
     align-content: start;
   }
   .about__contact a:hover {
-    color: var(--white-60);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
   }
   .about__lists {
     grid-column: 2 / 4;
@@ -221,7 +225,7 @@
     gap: var(--space-5);
   }
   .about h2 {
-    color: var(--white-60);
+    color: var(--ink);
     margin-bottom: var(--space-3);
   }
   .about ul,
@@ -235,11 +239,12 @@
     gap: var(--space-3);
   }
   .about .row span:first-child {
-    color: var(--white-60);
+    color: var(--ink);
   }
   .about ul a:hover,
   .about ol a:hover {
-    color: var(--white-60);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
   }
   .about__portrait {
     grid-column: 1;
@@ -259,16 +264,17 @@
     grid-template-columns: 1fr auto auto;
     gap: var(--space-4);
     padding-block: var(--space-2);
-    border-top: 1px solid var(--white-12);
+    border-top: 1px solid var(--ink);
   }
   .index a:last-child {
-    border-bottom: 1px solid var(--white-12);
+    border-bottom: 1px solid var(--ink);
   }
   .index a:hover {
-    color: var(--white-60);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
   }
   .index a span:not(:first-child) {
-    color: var(--white-60);
+    color: var(--ink);
   }
 
   /* Viewer: one image full screen on black */
@@ -279,11 +285,11 @@
     height: 100svh;
     max-width: none;
     max-height: none;
-    background: var(--black);
-    color: var(--white);
+    background: var(--ground);
+    color: var(--ink);
   }
   .viewer::backdrop {
-    background: var(--black);
+    background: var(--ground);
   }
   .viewer__stage {
     position: absolute;
@@ -321,10 +327,11 @@
     justify-content: space-between;
     gap: var(--space-4);
     padding-inline: var(--gutter);
-    color: var(--white-60);
+    color: var(--ink);
   }
   .viewer button:hover {
-    color: var(--white-60);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
   }
   .viewer__nav {
     position: absolute;
@@ -355,7 +362,8 @@
     padding: var(--space-6) var(--gutter);
   }
   .plain a:hover {
-    color: var(--white-60);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
   }
 
   @media (max-width: 60em) {

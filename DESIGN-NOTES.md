@@ -288,3 +288,10 @@ removed (they remain in git history before this commit) and replaced by:
 - **Type:** Jost 200/300 for display and the About statement, Switzer for everything
   else. Sizes are small on purpose; the pictures carry the page.
 - **No location anywhere.** Placeholders are greyscale so the demo is black and white too.
+
+## 8. White, not black
+
+Client correction: white ground, black type, no grey. The ground token now points at
+white, every grey (white at an opacity) is gone, hierarchy comes from size, weight and
+tracking only, hover states are underlines, the open About link is struck through, and
+the grid behind the About overlay ghosts toward white at 18% under the blur.

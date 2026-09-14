@@ -1,4 +1,5 @@
-/* Tokens. Black and white only: every grey on the site is white at an opacity.
+/* Tokens. Black on white only. No grey anywhere: hierarchy comes from size, weight and
+   tracking, hover states are underlines.
    Display: Jost 200/300 — tall, thin sans capitals (the magazine-spread reference).
    Text: Switzer — small, plain grotesk for standfirsts, captions and lists.
    Paid upgrade path: --font-display → 'ABC Marfa' or 'Söhne Breit' (Extraleicht),
@@ -9,10 +10,9 @@
   :root {
     --black: #000000;
     --white: #ffffff;
-    --white-60: rgb(255 255 255 / 0.6);
-    --white-40: rgb(255 255 255 / 0.4);
-    --white-12: rgb(255 255 255 / 0.12);
-    --focus: var(--white);
+    --ground: var(--white);
+    --ink: var(--black);
+    --focus: var(--ink);
 
     --font-display: 'Jost', 'Futura', 'Avenir Next', 'Century Gothic', sans-serif;
     --font-text: 'Switzer', 'Helvetica Neue', Helvetica, Arial, sans-serif;
