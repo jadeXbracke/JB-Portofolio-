@@ -4,8 +4,8 @@ import { getSite } from '@/lib/cms';
 const { settings, series } = await getSite();
 ---
 
-<Shell {settings} {series} title="Not found" description="That page does not exist." noindex left={[{ label: 'Not found' }]}>
+<Shell {settings} {series} title="Not found" description="That page does not exist." noindex left={[{ label: 'Archive', href: '/' }, { label: 'Work', href: '/work' }]}>
   <section class="plain">
-    <p class="dim">That page does not exist. <a href="/" style="color: var(--white)">All images</a></p>
+    <p class="dim">That page does not exist. <a href="/">Archive</a></p>
   </section>
 </Shell>

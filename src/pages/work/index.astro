@@ -1,21 +1,65 @@
 ---
 import Shell from '@/site/Shell.astro';
+import Pic from '@/components/Pic.astro';
 import { getSite } from '@/lib/cms';
-import { ogImageUrl } from '@/lib/image';
-import { DISCIPLINE_LABEL } from '@/lib/types';
+import { ogImageUrl, preloadAttrs, QUALITY } from '@/lib/image';
+import { DISCIPLINE_LABEL, type Discipline } from '@/lib/types';
+
 const { settings, series } = await getSite();
-const total = series.reduce((n, s) => n + s.images.length, 0);
+const disciplines = [...new Set(series.map((s) => s.discipline))].sort() as Discipline[];
+const years = [...new Set(series.map((s) => s.year))].sort((a, b) => b - a);
+const SIZES = '(min-width: 60em) 31vw, 47vw';
 ---
 
-<Shell {settings} {series} title="Index" description={`Series by ${settings.photographerName}: ${series.map((s) => s.title).join(', ')}.`} image={ogImageUrl(series[0]?.cover)} left={[{ label: `${series.length} series, ${total} images` }]}>
-  <h1 class="sr-only">Index</h1>
-  <nav class="index" aria-label="Series">
-    {series.map((s) => (
-      <a href={`/work/${s.slug}`}>
-        <span>{s.title}</span>
-        <span>{DISCIPLINE_LABEL[s.discipline]}</span>
-        <span>{s.year}</span>
-      </a>
-    ))}
-  </nav>
+<Shell {settings} {series} title="Work" description={`Projects by ${settings.photographerName}: ${series.map((s) => s.title).join(', ')}.`} image={ogImageUrl(series[0]?.cover)} preload={series[0] ? preloadAttrs(series[0].cover, SIZES, QUALITY.grid) : undefined} left={[{ label: 'Archive', href: '/' }, { label: 'Work', href: '/work', current: true }, { label: `${series.length} projects` }]}>
+  <h1 class="sr-only">Work</h1>
+  <div class="filters small" data-filters>
+    <div class="filters__group" role="group" aria-label="Discipline">
+      <button type="button" aria-pressed="true" data-filter="discipline" data-value="">All</button>
+      {disciplines.map((d) => <button type="button" aria-pressed="false" data-filter="discipline" data-value={d}>{DISCIPLINE_LABEL[d]}</button>)}
+    </div>
+    <div class="filters__group" role="group" aria-label="Year">
+      <button type="button" aria-pressed="true" data-filter="year" data-value="">All years</button>
+      {years.map((y) => <button type="button" aria-pressed="false" data-filter="year" data-value={y}>{y}</button>)}
+    </div>
+  </div>
+  <div class="projects" data-projects>
+    {
+      series.map((s, i) => (
+        <a class="project" href={`/work/${s.slug}`} data-discipline={s.discipline} data-year={s.year}>
+          <Pic photo={s.cover} sizes={SIZES} quality={QUALITY.grid} priority={i === 0} />
+          <span class="project__meta small">
+            <span>{s.title}</span>
+            <span>{s.year}, {DISCIPLINE_LABEL[s.discipline]}</span>
+          </span>
+        </a>
+      ))
+    }
+  </div>
+  <p class="projects__empty small" data-empty hidden>No projects match.</p>
+  <script>
+    // Filters: one value per group, AND across groups. Empty value means all.
+    const root = document.querySelector<HTMLElement>('[data-filters]');
+    const cards = [...document.querySelectorAll<HTMLElement>('[data-projects] .project')];
+    const empty = document.querySelector<HTMLElement>('[data-empty]');
+    if (root) {
+      const state: Record<string, string> = { discipline: '', year: '' };
+      const apply = () => {
+        let n = 0;
+        for (const c of cards) {
+          const ok = Object.entries(state).every(([k, v]) => !v || c.dataset[k] === v);
+          c.hidden = !ok;
+          if (ok) n++;
+        }
+        root.querySelectorAll<HTMLButtonElement>('[data-filter]').forEach((b) => b.setAttribute('aria-pressed', String(state[b.dataset.filter!] === b.dataset.value)));
+        if (empty) empty.hidden = n > 0;
+      };
+      root.addEventListener('click', (e) => {
+        const b = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-filter]');
+        if (!b) return;
+        state[b.dataset.filter!] = b.dataset.value ?? '';
+        apply();
+      });
+    }
+  </script>
 </Shell>

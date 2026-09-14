@@ -19,7 +19,7 @@ const first = items[0]?.photo;
   image={ogImageUrl(settings.seoDefaults.ogImage ?? first)}
   preload={first ? preloadAttrs(first, heightSizes(first, 30, 90), QUALITY.grid) : undefined}
   jsonLd={[personLd(settings, Astro.site, Astro.url.toString())]}
-  left={[{ label: `${items.length} images` }, { label: 'Index', href: '/work' }]}
+  left={[{ label: 'Archive', href: '/', current: true }, { label: 'Work', href: '/work' }, { label: `${items.length} images` }]}
 >
   <h1 class="sr-only">{settings.photographerName}</h1>
   <Grid {items} />

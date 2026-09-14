@@ -17,7 +17,7 @@ blurred grid with your statement, contact details, the list of series, selected
 exhibitions and clients. Each series has its own page with its title in tall thin
 capitals, a short intro and the series' pictures.
 
-Routes: `/` (all images), `/work` (index of series), `/work/<series>`, `/about`,
+Routes: `/` (archive), `/work` (all projects, filtered), `/work/<series>`, `/about`,
 `/contact`, `/studio` (the editor).
 
 ---

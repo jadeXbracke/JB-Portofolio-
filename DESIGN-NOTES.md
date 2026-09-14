@@ -303,3 +303,10 @@ is a light geometric sans, thin and tracked (Futura's family). Jost is that fami
 the one real, self-hosted face, so it is now the only family on the site: hairline-to-
 thin for titles, light for running text, regular for the small tracked capitals. Switzer
 is gone.
+
+## 10. Archive and Work
+
+Client: the home page is the archive; Work is a separate page with all projects,
+filtered. The bar's left side now reads Archive / Work (current one underlined) plus the
+count. `/work` lists every project as its cover with title, year and discipline, under two
+filter rows (discipline, year) that combine. Filtering is a state change; nothing animates.

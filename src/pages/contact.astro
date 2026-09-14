@@ -6,7 +6,7 @@ import { personLd } from '@/lib/jsonld';
 const { settings, series } = await getSite();
 ---
 
-<Shell {settings} {series} title="Contact" description={`Commission ${settings.photographerName}: ${settings.email}. ${settings.availabilityNote ?? ''}`.trim()} image={ogImageUrl(settings.seoDefaults.ogImage)} jsonLd={[personLd(settings, Astro.site, Astro.url.toString())]} left={[{ label: 'Contact' }]}>
+<Shell {settings} {series} title="Contact" description={`Commission ${settings.photographerName}: ${settings.email}. ${settings.availabilityNote ?? ''}`.trim()} image={ogImageUrl(settings.seoDefaults.ogImage)} jsonLd={[personLd(settings, Astro.site, Astro.url.toString())]} left={[{ label: 'Archive', href: '/' }, { label: 'Work', href: '/work' }]}>
   <section class="plain">
     <h1 class="small dim">Commissions, prints, questions</h1>
     <a class="display" style="font-size: var(--statement); text-transform: none; letter-spacing: 0.02em" href={`mailto:${settings.email}`}>{settings.email}</a>

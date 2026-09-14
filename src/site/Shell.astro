@@ -17,7 +17,7 @@ interface Props {
   jsonLd?: Record<string, unknown>[];
   preload?: PreloadAttrs;
   noindex?: boolean;
-  left?: { label: string; href?: string }[];
+  left?: { label: string; href?: string; current?: boolean }[];
   /** The /about page renders About in flow instead of as an overlay. */
   aboutPage?: boolean;
 }

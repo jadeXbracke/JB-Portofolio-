@@ -30,7 +30,7 @@ const description = words(toText(item.intro), 30) || `${item.title}, ${item.year
   image={ogImageUrl(item.cover)}
   preload={preloadAttrs(first, firstSizes, QUALITY.grid)}
   jsonLd={[seriesLd(item, settings, Astro.site, Astro.url.toString())]}
-  left={[{ label: 'Index', href: '/work' }, { label: `${item.images.length} images` }]}
+  left={[{ label: 'Archive', href: '/' }, { label: 'Work', href: '/work', current: true }, { label: `${item.images.length} images` }]}
 >
   <article>
     <header class="feature">
