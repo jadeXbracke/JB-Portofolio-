@@ -26,7 +26,7 @@ const SIZES = '(min-width: 60em) 31vw, 47vw';
   <div class="projects" data-projects>
     {
       series.map((s, i) => (
-        <a class="project" href={`/work/${s.slug}`} data-discipline={s.discipline} data-year={s.year}>
+        <a class="project" href={`/work/${s.slug}`} style={`--ar:${s.cover.width}/${s.cover.height}`} data-discipline={s.discipline} data-year={s.year}>
           <Pic photo={s.cover} sizes={SIZES} quality={QUALITY.grid} priority={i === 0} />
           <span class="project__meta small">
             <span>{s.title}</span>

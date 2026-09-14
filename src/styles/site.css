@@ -275,16 +275,27 @@
     text-decoration: underline;
     text-underline-offset: 0.25em;
   }
+  /* Projects share the archive's justified rows: covers of any ratio line up by height */
   .projects {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    --row: 34vh;
+    display: flex;
+    flex-wrap: wrap;
     gap: var(--space-5) var(--gap);
     padding: var(--space-3) var(--gutter) var(--space-7);
   }
+  .projects::after {
+    content: '';
+    flex: 10 1 auto;
+  }
   .project {
+    flex: var(--ar) 1 calc(var(--ar) * var(--row));
+    min-width: 0;
     display: grid;
     gap: var(--space-2);
     align-content: start;
+  }
+  .project .pic {
+    width: 100%;
   }
   .project[hidden] {
     display: none;
@@ -436,7 +447,14 @@
       grid-template-columns: 1fr;
     }
     .projects {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      --row: 16vh;
+    }
+    .project__meta {
+      flex-direction: column;
+      gap: 0;
+    }
+    .bar__left span {
+      display: none; /* the count does not fit beside the name on a phone */
     }
     .filters__group + .filters__group {
       margin-left: 0;
