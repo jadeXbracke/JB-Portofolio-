@@ -295,3 +295,11 @@ Client correction: white ground, black type, no grey. The ground token now point
 white, every grey (white at an opacity) is gone, hierarchy comes from size, weight and
 tracking only, hover states are underlines, the open About link is struck through, and
 the grid behind the About overlay ghosts toward white at 18% under the blur.
+
+## 9. One typeface
+
+Client: "the typeface like here", pointing at the three references. Their common thread
+is a light geometric sans, thin and tracked (Futura's family). Jost is that family and is
+the one real, self-hosted face, so it is now the only family on the site: hairline-to-
+thin for titles, light for running text, regular for the small tracked capitals. Switzer
+is gone.

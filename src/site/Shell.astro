@@ -24,7 +24,7 @@ interface Props {
 const { settings, series, title, description, image, type, jsonLd, preload, noindex, left, aboutPage = false } = Astro.props;
 ---
 
-<Base {title} {description} siteName={settings.photographerName} {image} {type} {jsonLd} {preload} {noindex} fonts={['jost-variable.woff2', 'switzer-400.woff2']}>
+<Base {title} {description} siteName={settings.photographerName} {image} {type} {jsonLd} {preload} {noindex} fonts={['jost-variable.woff2']}>
   <Bar {settings} {left} />
   <main id="main">
     <slot />

@@ -122,8 +122,8 @@ spacing the site uses is a named value in that file. Components never contain ra
 
 - **Colours:** the site is black on white by design (`--ground`, `--ink`). There is no
   grey and no accent colour to change.
-- **Typeface:** change `--font-display` (Jost, the thin capitals and the About statement)
-  or `--font-text` (Switzer, everything small) in the token file. The comment at the top names the paid upgrade path (PP Editorial New, Söhne, GT
+- **Typeface:** the whole site uses one family, Jost (`--font` in the token file), at
+  three weights: hairline titles, light text, regular small capitals. The comment at the top names the paid upgrade path (PP Editorial New, Söhne, GT
   Alpina, ABC Marfa). Put the licensed `.woff2` files in `public/fonts/` and add matching
   `@font-face` rules to `src/styles/fonts.css`; nothing else changes.
 - **Type scale:** `--ratio` (1.25 or 1.333) and `--step-0` (the body size). Every other
@@ -342,10 +342,9 @@ DESIGN-NOTES.md          the design plan and the self-review against the brief
 - Contact details (`hello@jadebracke.com`, `@jadebracke`, `jadebracke.com`) are seed
   values in `seed/content.json` and `astro.config.mjs` (`SITE_URL`); the live values come
   from Site settings in the Studio.
-- The Switzer, General Sans and Erode files could not be downloaded from the build
-  environment (its network policy blocks fontshare.com). `npm run fonts` fetches them on
-  any normal machine; until then the site uses the system fallback stack for Switzer.
-  Jost (Google Fonts) is fetched, committed and is the real display face. The review screenshots in this
+- The site's only typeface, Jost (Google Fonts), is fetched, subset and committed. The
+  fetch script still knows the Fontshare families for the paid-upgrade path, but nothing
+  on the site uses them. The review screenshots in this
   session used renamed Google stand-ins installed only in that environment.
 - The Studio's drag-to-reorder at 390px was checked against Sanity's own layout, not a
   live dataset (no project credentials in the build environment). See section 2.

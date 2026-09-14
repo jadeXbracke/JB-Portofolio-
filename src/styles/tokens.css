@@ -1,9 +1,9 @@
 /* Tokens. Black on white only. No grey anywhere: hierarchy comes from size, weight and
    tracking, hover states are underlines.
-   Display: Jost 200/300 — tall, thin sans capitals (the magazine-spread reference).
-   Text: Switzer — small, plain grotesk for standfirsts, captions and lists.
-   Paid upgrade path: --font-display → 'ABC Marfa' or 'Söhne Breit' (Extraleicht),
-   --font-text → 'Söhne'. Swap the family here; nothing else refers to a family name. */
+   One family: Jost, a light geometric sans (the Futura family the three references share).
+   Hairline for the titles, light for text, regular for the small tracked capitals.
+   Paid upgrade path: 'Futura Now', 'ABC Marfa' or 'Neue Haas Grotesk Display' Thin —
+   swap --font here; nothing else refers to a family name. */
 @layer reset, tokens, base, layout, components, states;
 
 @layer tokens {
@@ -14,15 +14,17 @@
     --ink: var(--black);
     --focus: var(--ink);
 
-    --font-display: 'Jost', 'Futura', 'Avenir Next', 'Century Gothic', sans-serif;
-    --font-text: 'Switzer', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --font: 'Jost', 'Futura', 'Avenir Next', 'Century Gothic', sans-serif;
+    --font-display: var(--font);
+    --font-text: var(--font);
     --weight-display: 200;
     --weight-display-strong: 300;
-    --weight-text: 400;
+    --weight-text: 300;
+    --weight-small: 400;
 
     /* Modular scale, ratio 1.25, base 14px: the site's text is small on purpose */
     --ratio: 1.25;
-    --step-0: 0.875rem;
+    --step-0: 0.9375rem;
     --step--1: calc(var(--step-0) / var(--ratio));
     --step-1: calc(var(--step-0) * var(--ratio));
     --step-2: calc(var(--step-1) * var(--ratio));
@@ -36,9 +38,9 @@
     /* The title: tall thin capitals, sized to the viewport like a magazine headline */
     --display: clamp(var(--step-5), 7.5vw, var(--step-8));
     --statement: clamp(var(--step-2), 2.4vw, var(--step-4));
-    --track-display: 0.1em;
-    --track-bar: 0.28em;
-    --track-small: 0.14em;
+    --track-display: 0.12em;
+    --track-bar: 0.34em;
+    --track-small: 0.22em;
     --leading-display: 1;
     --leading-text: 1.55;
     --leading-statement: 1.35;

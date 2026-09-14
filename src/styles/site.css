@@ -28,6 +28,7 @@
   }
   .small {
     font-size: var(--step--1);
+    font-weight: var(--weight-small);
     letter-spacing: var(--track-small);
     text-transform: uppercase;
   }
